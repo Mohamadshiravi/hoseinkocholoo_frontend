@@ -1,41 +1,35 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { AiOutlineFire } from "react-icons/ai";
 import { FiUser } from "react-icons/fi";
 import { IoSearchOutline } from "react-icons/io5";
 import { LuShoppingCart } from "react-icons/lu";
+import axiosInstance from "../../utils/axios/axios";
+import CategoriesType from "../../types/categories";
 
 export default function Header() {
-  const [categories, setCategories] = useState([
-    "لوازم ارایش",
-    "لوازم ارایش",
-    "لوازم ارایش",
-    "لوازم ارایش",
-    "لوازم ارایش",
-    "لوازم ارایش",
-    "لوازم ارایش",
-    "لوازم ارایش",
-    "لوازم ارایش",
-  ]);
+  const [isHover, setIsHover] = useState(false);
+  const [categories, setCategories] = useState<CategoriesType[]>([]);
+
   useEffect(() => {
-    async function FetchCat() {
-      const res = await axios.get(
-        "http://127.0.0.1:8000/products/categories/hierarchy"
-      );
-      console.log(res);
-    }
-    FetchCat();
+    fetchCategories();
   }, []);
+
+  async function fetchCategories() {
+    const res = await axiosInstance.get("products/categories/hierarchy/");
+    console.log(res.data);
+    setCategories(res.data);
+  }
+
   return (
     <>
-      <section></section>
-      <header className="px-3 py-2 flex flex-col gap-3 border-b border-zinc-200">
+      {isHover && (
+        <section className="w-full h-screen bg-black/20 backdrop-blur-[2px] fixed top-0 left-0 z-40"></section>
+      )}
+      {isHover && (
+        <section className="w-[96%] left-[2%] h-[600px] fixed top-0 bg-white z-50"></section>
+      )}
+      <header className="relative px-3 py-2 flex flex-col gap-3 border-b bg-white border-zinc-200 z-50">
         <div className="flex items-start relative">
-          <div className="flex items-center gap-3 absolute top-0 left-0">
-            <span>مجله زیبایی</span>
-            <span className="text-lg">|</span>
-            <span> فروشنده شو !</span>
-          </div>
           <h4 className="w-full text-4xl text-center font-black">LOGO</h4>
         </div>
         <div className="relative">
@@ -56,17 +50,19 @@ export default function Header() {
             </div>
           </div>
         </div>
-        <div className="flex items-center justify-center gap-8 mt-2 text-sm vazir-medium">
-          {categories.map((e, i) => (
+        <div className="flex items-center justify-center mt-2 text-sm vazir-medium">
+          {categories.map((e) => (
             <span
-              key={i}
-              className="cursor-pointer after:transition-all after:content-[''] relative after:h-[2px] after:w-[0%] hover:after:w-[140%] after:bg-zinc-800 after:absolute after:-bottom-[13px] after:-right-[20%]"
+              onMouseEnter={() => setIsHover(true)}
+              onMouseLeave={() => setIsHover(false)}
+              key={e.id}
+              className="cursor-pointer after:transition-all px-4 after:content-[''] relative after:h-[2px] after:w-[0%] hover:after:w-[100%] after:bg-zinc-800 after:absolute after:-bottom-[13px] after:-right-0"
             >
-              {e}
+              {e.title}
             </span>
           ))}
           <span className="text-lg">|</span>
-          <span className="flex items-center gap-1 text-red-500 cursor-pointer">
+          <span className="flex items-center gap-1 text-red-500 cursor-pointer px-4">
             <AiOutlineFire className="text-base" />
             افروز
           </span>
