@@ -5,10 +5,32 @@ import { IoSearchOutline } from "react-icons/io5";
 import { LuShoppingCart } from "react-icons/lu";
 import axiosInstance from "../../utils/axios/axios";
 import CategoriesType from "../../types/categories";
+import { IoIosArrowBack } from "react-icons/io";
 
 export default function Header() {
-  const [isHover, setIsHover] = useState(false);
+  const [hoverMenu, setHoverMenu] = useState<CategoriesType | false>(false);
   const [categories, setCategories] = useState<CategoriesType[]>([]);
+
+  // {
+  //   banner: "http://127.0.0.1:8000/media/products/categor",
+  //   id: 1,
+  //   title: "مردانه",
+  //   slug: "مردانه",
+  //   subcategories: [
+  //     {
+  //       banner: "http://127.0.0.1:8000/media/products/categor",
+  //       id: 1,
+  //       title: "مردانه",
+  //       slug: "مردانه",
+  //     },
+  //     {
+  //       banner: "http://127.0.0.1:8000/media/products/categor",
+  //       id: 1,
+  //       title: "مردانه",
+  //       slug: "مردانه",
+  //     },
+  //   ],
+  // }
 
   useEffect(() => {
     fetchCategories();
@@ -20,13 +42,38 @@ export default function Header() {
     setCategories(res.data);
   }
 
+  useEffect(() => {
+    console.log(hoverMenu);
+  }, [hoverMenu]);
+
   return (
     <>
-      {isHover && (
+      {hoverMenu && (
         <section className="w-full h-screen bg-black/20 backdrop-blur-[2px] fixed top-0 left-0 z-40"></section>
       )}
-      {isHover && (
-        <section className="w-[96%] left-[2%] h-[600px] fixed top-0 bg-white z-50"></section>
+      {hoverMenu && (
+        <section className="px-10 py-4 rounded-b-lg w-[96%] left-[2%] h-[600px] fixed top-[160px] bg-white z-50">
+          <h3 className="text-gray-400 vazir-light text-sm underline underline-offset-[3px] cursor-pointer">
+            همه محصولات {hoverMenu.title}
+          </h3>
+          <div className="mt-10 flex gap-8">
+            {hoverMenu.subcategories.map((e) => (
+              <div>
+                <h4 className="flex items-center gap-2">
+                  <span className="bg-red-600 w-[5px] aspect-square block"></span>
+                  <span className="vazir-bold">{e.title}</span>
+                  <IoIosArrowBack />
+                </h4>
+                <div className="flex flex-col gap-1 mt-2 text-zinc-500">
+                  <span>زیر مجموعه</span>
+                  <span>زیر مجموعه</span>
+                  <span>زیر مجموعه</span>
+                  <span>زیر مجموعه</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
       )}
       <header className="relative px-3 py-2 flex flex-col gap-3 border-b bg-white border-zinc-200 z-50">
         <div className="flex items-start relative">
@@ -53,8 +100,8 @@ export default function Header() {
         <div className="flex items-center justify-center mt-2 text-sm vazir-medium">
           {categories.map((e) => (
             <span
-              onMouseEnter={() => setIsHover(true)}
-              onMouseLeave={() => setIsHover(false)}
+              onMouseEnter={() => setHoverMenu(e)}
+              onMouseLeave={() => setHoverMenu(false)}
               key={e.id}
               className="cursor-pointer after:transition-all px-4 after:content-[''] relative after:h-[2px] after:w-[0%] hover:after:w-[100%] after:bg-zinc-800 after:absolute after:-bottom-[13px] after:-right-0"
             >
