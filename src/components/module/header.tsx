@@ -16,19 +16,18 @@ export default function Header() {
   }, []);
 
   async function fetchCategories() {
-    const res = await axiosInstance.get("products/categories/hierarchy/");
+    const res = await axiosInstance.get("products/categories/");
     console.log(res.data);
     setCategories(res.data);
   }
 
-  useEffect(() => {
-    console.log(hoverMenu);
-  }, [hoverMenu]);
-
   return (
     <>
       {hoverMenu && (
-        <section className="w-full h-screen bg-black/20 backdrop-blur-[2px] fixed top-0 left-0 z-40"></section>
+        <section
+          onMouseEnter={() => setHoverMenu(false)}
+          className="w-full h-screen bg-black/20 backdrop-blur-[2px] fixed top-0 left-0 z-40"
+        ></section>
       )}
       {hoverMenu && (
         <section
@@ -39,19 +38,18 @@ export default function Header() {
             همه محصولات {hoverMenu.title}
           </h3>
           <div className="flex justify-between">
-            <div className="mt-10 flex gap-8 ">
+            <div className="mt-10 flex gap-8">
               {hoverMenu.subcategories.map((e) => (
-                <div>
+                <div key={e.id}>
                   <h4 className="flex items-center gap-2">
                     <span className="bg-red-600 w-[5px] aspect-square block"></span>
                     <span className="vazir-bold">{e.title}</span>
                     <IoIosArrowBack />
                   </h4>
                   <div className="flex flex-col gap-1 mt-2 text-zinc-500">
-                    <span>زیر مجموعه</span>
-                    <span>زیر مجموعه</span>
-                    <span>زیر مجموعه</span>
-                    <span>زیر مجموعه</span>
+                    {e.subcategories.map((e) => (
+                      <span key={e.id}>{e.title}</span>
+                    ))}
                   </div>
                 </div>
               ))}
@@ -65,7 +63,7 @@ export default function Header() {
         </section>
       )}
       <header className="relative px-3 py-2 flex flex-col gap-3 border-b bg-white border-zinc-200 z-50">
-        <div className="flex items-start relative">
+        <div className="flex items-start relative mt-3">
           <h4 className="w-full text-4xl text-center font-black">LOGO</h4>
         </div>
         <div className="relative">
