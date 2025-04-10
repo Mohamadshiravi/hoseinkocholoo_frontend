@@ -7,24 +7,25 @@ import axiosInstance from "../../utils/axios/axios";
 import CategoriesType from "../../types/categories";
 import { IoIosArrowBack } from "react-icons/io";
 import MobileMenuSection from "./mobileMenu/mobileMenuSection";
+import { useTypedDispatch, useTypedSelector } from "../../redux/typedhooks";
+import { fetchCategoriesFromServer } from "../../redux/slices/categories";
 
 export default function Header() {
   const [hoverMenu, setHoverMenu] = useState<CategoriesType | false>();
-  const [categories, setCategories] = useState<CategoriesType[]>([]);
-
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMenuMount, setIsMenuMount] = useState(false);
 
+  const { data: categories, loading } = useTypedSelector(
+    (state) => state.categories
+  );
+
   useEffect(() => {
-    fetchCategories();
+    if (!categories) {
+      dispatch(fetchCategoriesFromServer());
+    }
   }, []);
 
-  async function fetchCategories() {
-    const res = await axiosInstance.get("products/categories/");
-    console.log(res.data);
-    setCategories(res.data);
-  }
-
+  const dispatch = useTypedDispatch();
   return (
     <section className="relative">
       {/* mobile menu */}
@@ -38,7 +39,10 @@ export default function Header() {
         ></section>
       )}
       {isMenuMount && (
-        <MobileMenuSection isMenuOpen={isMenuOpen} categories={categories} />
+        <MobileMenuSection
+          isMenuOpen={isMenuOpen}
+          categories={categories || []}
+        />
       )}
 
       {/* desktop menu */}
@@ -82,7 +86,7 @@ export default function Header() {
         </section>
       )}
       <header className="relative px-3 py-2 flex flex-col lg:gap-3 gap-2 border-b bg-white border-zinc-200 z-30">
-        <div className="flex items-center relative lg:mt-3 mt-2">
+        <div className="flex items-center relative mt-3">
           <button
             onClick={() => {
               setIsMenuMount(true);
@@ -116,8 +120,8 @@ export default function Header() {
             </div>
           </div>
         </div>
-        <div className=" items-center justify-center mt-2 text-sm vazir-medium lg:flex hidden">
-          {categories.map((e) => (
+        <div className=" items-center justify-center text-sm vazir-medium lg:flex hidden">
+          {categories?.map((e) => (
             <span
               onMouseEnter={() => setHoverMenu(e)}
               key={e.id}
