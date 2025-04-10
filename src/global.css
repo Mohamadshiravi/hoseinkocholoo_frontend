@@ -39,3 +39,10 @@ body {
 .vazir-black {
   font-family: "vazir-black";
 }
+
+.noScrollbar::-webkit-scrollbar {
+  display: none;
+}
+.noScrollbar::-webkit-scrollbar-thumb {
+  display: none;
+}
