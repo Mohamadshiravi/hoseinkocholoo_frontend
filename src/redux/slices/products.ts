@@ -3,25 +3,33 @@ import axiosInstance from "../../utils/axios/axios";
 import ProductType from "../../types/products";
 
 interface InitialState {
-  loading: boolean;
-  data: {
-    offeredProducts: ProductType[] | null;
-    Products: ProductType[] | null;
+  offeredProducts: {
+    data: ProductType[] | null;
+    loading: boolean;
+    error: null | string;
   };
-  error: null | string;
+  Products: {
+    data: ProductType[] | null;
+    loading: boolean;
+    error: null | string;
+  };
 }
 
 const initialState: InitialState = {
-  data: {
-    offeredProducts: null,
-    Products: null,
+  offeredProducts: {
+    data: [],
+    loading: true,
+    error: null,
   },
-  loading: true,
-  error: null,
+  Products: {
+    data: [],
+    loading: true,
+    error: null,
+  },
 };
 
 export const fetchOfferedProductsFromServer = createAsyncThunk(
-  "offeredProducts/fetchOfferedProductsFromServer",
+  "products/fetchOfferedProductsFromServer",
   async () => {
     const res = await axiosInstance.get(
       "products/products/filtered?has_discount=true"
@@ -31,7 +39,7 @@ export const fetchOfferedProductsFromServer = createAsyncThunk(
 );
 
 const slice = createSlice({
-  name: "offeredProducts",
+  name: "products",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -39,14 +47,14 @@ const slice = createSlice({
       fetchOfferedProductsFromServer.fulfilled,
       (state, action) => {
         if (action.payload) {
-          state.data.offeredProducts = action.payload;
-          state.loading = false;
+          state.offeredProducts.data = action.payload;
+          state.offeredProducts.loading = false;
         }
       }
     );
     builder.addCase(fetchOfferedProductsFromServer.pending, (state) => {
-      state.error = null;
-      state.loading = true;
+      state.offeredProducts.error = null;
+      state.offeredProducts.loading = true;
     });
   },
 });

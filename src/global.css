@@ -50,3 +50,32 @@ body {
 .noScrollbar::-webkit-scrollbar-thumb {
   display: none;
 }
+.flash-once {
+  position: relative;
+  overflow: hidden;
+}
+
+.flash-once:hover::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.7),
+    transparent
+  );
+  animation: skeleton-flash 0.5s ease-in-out forwards;
+}
+
+@keyframes skeleton-flash {
+  0% {
+    transform: translateX(-100%) skewX(-20deg);
+  }
+  100% {
+    transform: translateX(100%) skewX(-20deg);
+  }
+}
