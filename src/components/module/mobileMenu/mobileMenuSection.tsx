@@ -45,7 +45,7 @@ export default function MobileMenuSection({
               </div>
               <div
                 className={`${
-                  menu && e.id === menu.id ? "h-[100dvh]" : "h-[0dvh]"
+                  menu && e.id === menu.id ? "h-auto" : "h-0"
                 } flex flex-col bg-zinc-100 w-full rounded-md mt-1 transition-all duration-300 overflow-hidden`}
               >
                 {e.subcategories.map((e) => (

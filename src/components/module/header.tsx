@@ -131,7 +131,7 @@ export default function Header() {
             </span>
           ))}
           <span className="text-xl">|</span>
-          <span className="flex items-center gap-1 text-red-500 cursor-pointer px-4">
+          <span className="flex items-center gap-1 text-primary cursor-pointer px-4">
             <AiOutlineFire className="text-base" />
             افروز
           </span>

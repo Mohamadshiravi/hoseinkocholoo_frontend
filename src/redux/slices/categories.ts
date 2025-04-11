@@ -2,13 +2,13 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import CategoriesType from "../../types/categories";
 import axiosInstance from "../../utils/axios/axios";
 
-interface categoryState {
+interface InitialState {
   loading: boolean;
   data: CategoriesType[] | null;
   error: null | string;
 }
 
-const initialState: categoryState = {
+const initialState: InitialState = {
   data: null,
   loading: true,
   error: null,
