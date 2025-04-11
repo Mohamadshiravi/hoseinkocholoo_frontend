@@ -54,8 +54,11 @@ export default function OfferedProductsSection() {
             ? offeredProducts?.map((product) => (
                 <ProductCard product={product} key={product.id} offered />
               ))
-            : Array.from({ length: 5 }).map((_) => (
-                <div className="keen-slider__slide bg-zinc-200 h-[250px] !min-w-[200px] !max-w-[200px] p-2 rounded-lg flex-shrink-0 flex flex-col"></div>
+            : Array.from({ length: 5 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="keen-slider__slide bg-zinc-200 h-[250px] !min-w-[200px] !max-w-[200px] p-2 rounded-lg flex-shrink-0 flex flex-col"
+                ></div>
               ))}
         </div>
       </div>

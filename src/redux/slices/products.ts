@@ -8,7 +8,7 @@ interface InitialState {
     loading: boolean;
     error: null | string;
   };
-  Products: {
+  products: {
     data: ProductType[] | null;
     loading: boolean;
     error: null | string;
@@ -21,7 +21,7 @@ const initialState: InitialState = {
     loading: true,
     error: null,
   },
-  Products: {
+  products: {
     data: [],
     loading: true,
     error: null,
@@ -34,6 +34,14 @@ export const fetchOfferedProductsFromServer = createAsyncThunk(
     const res = await axiosInstance.get(
       "products/products/filtered?has_discount=true"
     );
+    return res.data;
+  }
+);
+
+export const fetchAllProductsFromServer = createAsyncThunk(
+  "products/fetchAllProductsFromServer",
+  async () => {
+    const res = await axiosInstance.get("products/products");
     return res.data;
   }
 );
@@ -55,6 +63,16 @@ const slice = createSlice({
     builder.addCase(fetchOfferedProductsFromServer.pending, (state) => {
       state.offeredProducts.error = null;
       state.offeredProducts.loading = true;
+    });
+    builder.addCase(fetchAllProductsFromServer.fulfilled, (state, action) => {
+      if (action.payload) {
+        state.products.data = action.payload;
+        state.products.loading = false;
+      }
+    });
+    builder.addCase(fetchAllProductsFromServer.pending, (state) => {
+      state.products.error = null;
+      state.products.loading = true;
     });
   },
 });

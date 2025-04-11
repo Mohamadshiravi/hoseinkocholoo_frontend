@@ -2,6 +2,7 @@ import SliderSection from "./sliderSection";
 import CategorySlider from "./categorySlider";
 import OfferedProductsSection from "./offeredProductsSection";
 import BannersSection from "./bannersSection";
+import AllOfferedProductsSection from "./allOfferedProductsSection";
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
         <CategorySlider />
         <OfferedProductsSection />
         <BannersSection />
+        <AllOfferedProductsSection />
       </section>
     </main>
   );
