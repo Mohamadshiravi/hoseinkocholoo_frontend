@@ -10,20 +10,16 @@ import AboutSection from "./aboutSection";
 
 export default function Home() {
   return (
-    <main className="w-full">
+    <main className="w-full lg:px-32 sm:px-4 px-3">
       <SliderSection />
-      <section className="lg:px-32 w-full">
-        <CategorySlider />
-        <OfferedProductsSection />
-        <BannersSection />
-        <AllOfferedProductsSection />
-        <div className="lg:px-0 px-2">
-          <BannerSliderSection />
-          <TopBrandsSection />
-          <BannersSectionSecondary />
-          <AboutSection />
-        </div>
-      </section>
+      <CategorySlider />
+      <OfferedProductsSection />
+      <BannersSection />
+      <AllOfferedProductsSection />
+      <BannerSliderSection />
+      <TopBrandsSection />
+      <BannersSectionSecondary />
+      <AboutSection />
     </main>
   );
 }

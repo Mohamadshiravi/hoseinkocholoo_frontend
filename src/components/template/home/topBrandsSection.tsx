@@ -22,7 +22,10 @@ export default function TopBrandsSection() {
               ></div>
             ))
           : data?.map((e) => (
-              <div className="w-full aspect-square group relative transition-all border border-zinc-300 p-3 rounded-sm cursor-pointer flex items-center justify-center">
+              <div
+                key={e.id}
+                className="w-full aspect-square group relative transition-all border border-zinc-300 p-3 rounded-sm cursor-pointer flex items-center justify-center"
+              >
                 <img src={e.logo} alt={e.name} className="w-full h-full" />
                 <div className="w-full h-full absolute bg-primary/50 border border-primary opacity-0 group-hover:opacity-100 transition-all"></div>
               </div>

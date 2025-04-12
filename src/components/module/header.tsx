@@ -8,6 +8,8 @@ import { useTypedDispatch, useTypedSelector } from "../../redux/typedhooks";
 import { fetchCategoriesFromServer } from "../../redux/slices/categories";
 import { HiOutlineMenu } from "react-icons/hi";
 import { PiShoppingCartSimpleLight, PiUserLight } from "react-icons/pi";
+import { MdOutlineAccountBalanceWallet } from "react-icons/md";
+import { LuWallet } from "react-icons/lu";
 
 export default function Header() {
   const [hoverMenu, setHoverMenu] = useState<CategoriesType | false>();
@@ -86,8 +88,8 @@ export default function Header() {
           </div>
         </section>
       )}
-      <header className="relative px-3 py-2 flex flex-col lg:gap-3 gap-2 border-b bg-white border-zinc-200 z-30">
-        <div className="flex items-center relative mt-3">
+      <header className="relative lg:px-32 sm:px-4 px-3 py-2 flex flex-col lg:gap-3 gap-0 border-b bg-white border-zinc-200 z-30">
+        <div className="flex items-center relative">
           <button
             onClick={() => {
               setIsMenuMount(true);
@@ -97,35 +99,41 @@ export default function Header() {
           >
             <HiOutlineMenu />
           </button>
-          <h4 className="w-full text-3xl text-center font-black">LOGO</h4>
-          <div className="items-center gap-3 text-2xl lg:hidden flex">
-            <PiUserLight />
-            <span className="text-sm">|</span>
-            <PiShoppingCartSimpleLight />
-          </div>
-        </div>
-        <div onMouseEnter={() => setHoverMenu(false)} className="relative">
-          <div className="items-center gap-3 text-2xl absolute top-2 left-0 lg:flex hidden px-4">
-            <PiUserLight />
-            <span className="text-sm">|</span>
-            <PiShoppingCartSimpleLight />
-            <span className="text-sm bg-zinc-100 px-2 py-1 rounded-sm">
-              {(100000).toLocaleString()} ت
+          <h4 className="w-full sm:text-2xl text-base text-center moraba-bold h-[50px] flex items-center justify-center">
+            پوشاک حسین کوچولو
+          </h4>
+          <div className="items-center gap-3 text-2xl lg:hidden flex h-[35px]">
+            <span className="text-sm h-full rounded-md flex items-center gap-2 vazir-medium text-zinc-800">
+              {(100000).toLocaleString()} <span className="text-xs">ت</span>
+              <span className="text-zinc-600">|</span>
+              <LuWallet className="text-xl text-zinc-600" />
             </span>
           </div>
-          <div className="flex items-center justify-center">
-            <div className="flex items-center gap-2 lg:w-[500px] w-full border border-zinc-300 rounded-2xl px-4 py-1.5">
+        </div>
+        <div
+          onMouseEnter={() => setHoverMenu(false)}
+          className="relative flex items-center justify-center gap-2"
+        >
+          <div className="flex items-center justify-center w-full">
+            <div className="flex items-center gap-2 h-[45px] w-full border border-zinc-300 rounded-md px-4">
               <IoSearchOutline className="text-3xl" />
               <input
                 placeholder="جستجو"
                 type="text"
-                className="outline-none w-full"
+                className="outline-none w-full h-full"
               />
               <span>/</span>
             </div>
           </div>
+          <div className="items-center gap-3 text-2xl lg:flex hidden h-[45px]">
+            <span className="text-base border border-zinc-300 px-3 h-full rounded-md flex items-center gap-2 vazir-medium text-zinc-600">
+              {(100000).toLocaleString()} <span className="text-xs ">ت</span>
+              <span className="">|</span>
+              <LuWallet className="text-2xl " />
+            </span>
+          </div>
         </div>
-        <div className=" items-center justify-center text-sm moraba-regular lg:flex hidden">
+        <div className="items-center justify-center text-sm moraba-regular lg:flex hidden">
           {loading
             ? Array.from({ length: 6 }).map((_, i) => (
                 <span

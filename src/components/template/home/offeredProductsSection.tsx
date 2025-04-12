@@ -29,7 +29,7 @@ export default function OfferedProductsSection() {
   const dispatch = useTypedDispatch();
   return (
     <section dir="rtl" className="w-full relative lg:mt-16 mt-6 lg:rounded-lg">
-      <div className="relative">
+      <div className="relative p-3 bg-primary rounded-lg">
         <div
           ref={(ref) => {
             sliderRef.current = ref;
@@ -37,14 +37,28 @@ export default function OfferedProductsSection() {
           }}
           className="keen-slider"
         >
-          <div className="keen-slider__slide bg-zinc-50 p-4 lg:rounded-lg rounded-l-lg flex flex-col items-center justify-between !min-w-[150px] !max-w-[150px]  flex-shrink-0">
-            <h3 className="flex flex-col items-center moraba-bold text-2xl gap-1 ">
+          <div className="keen-slider__slide bg-primary p-4 flex rounded-lg flex-col items-center justify-between !min-w-[150px] !max-w-[150px]  flex-shrink-0">
+            <h3 className="flex flex-col items-center moraba-bold text-2xl gap-1 text-white">
               <span>پیشنهاد</span>
               <span>شگفت</span>
               <span>انگیز</span>
             </h3>
 
-            <button className="text-sm vazir-medium flex items-center gap-1 moraba-regular">
+            <div className="flex flex-row-reverse items-center gap-1 text-white">
+              <span className="bg-white text-zinc-800 w-[30px] h-[30px] rounded-md flex items-center justify-center">
+                01
+              </span>
+              :
+              <span className="bg-white text-zinc-800 w-[30px] h-[30px] rounded-md flex items-center justify-center">
+                08
+              </span>
+              :
+              <span className="bg-white text-zinc-800 w-[30px] h-[30px] rounded-md flex items-center justify-center">
+                30
+              </span>
+            </div>
+
+            <button className="text-sm vazir-medium flex items-center gap-1 moraba-regular text-white">
               مشاهده همه <IoIosArrowBack />
             </button>
           </div>

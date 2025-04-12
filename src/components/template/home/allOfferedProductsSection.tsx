@@ -51,7 +51,9 @@ export default function AllOfferedProductsSection() {
                 }}
                 className="keen-slider mt-2"
               >
-                <div className="keen-slider__slide bg-zinc-50 p-4 lg:rounded-lg rounded-l-lg flex flex-col items-center justify-between !min-w-[150px] !max-w-[150px]  flex-shrink-0">
+                <div
+                  className={`keen-slider__slide text-white bg-[${discount.bg_color}] p-4 rounded-lg flex flex-col items-center justify-between !min-w-[150px] !max-w-[150px]  flex-shrink-0`}
+                >
                   <h3 className="text-center moraba-bold text-2xl gap-1 px-6">
                     {discount.name}
                   </h3>

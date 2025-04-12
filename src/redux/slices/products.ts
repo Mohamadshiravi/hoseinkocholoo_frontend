@@ -18,6 +18,7 @@ interface InitialState {
       | {
           id: number;
           name: string;
+          bg_color: string;
           products: ProductType[];
         }[]
       | null;

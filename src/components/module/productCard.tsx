@@ -8,7 +8,7 @@ export default function ProductCard({
   offered?: boolean;
 }) {
   return (
-    <div className="keen-slider__slide h-[250px] flex flex-col justify-between relative border border-zinc-200 !min-w-[200px] !max-w-[200px] bg-white p-2 rounded-lg flex-shrink-0">
+    <div className="keen-slider__slide h-[250px] flex flex-col justify-between relative !min-w-[200px] !max-w-[200px] bg-white p-2 rounded-lg flex-shrink-0">
       <div className="w-[130px] h-[130px] object-cover flex items-center justify-center m-auto">
         <img
           src={

@@ -7,13 +7,12 @@ export default function Footer() {
   return (
     <footer>
       <div className="flex md:flex-row flex-col md:items-start gap-8 items-center justify-between bg-zinc-50 sm:py-10 py-4 lg:px-32 sm:px-10 px-4 text-zinc-500">
-        <div className="flex items-center justify-center text-6xl font-black ">
-          LOGO
-        </div>
+        <img src="/img/logo/logo.png" alt="logo" className="w-[200px]" />
+
         <div className="flex md:items-start items-center gap-30">
           <div className="flex flex-col gap-2 text-sm md:w-auto w-full">
             {data?.slice(0, 8).map((e) => (
-              <span>{e.title}</span>
+              <span key={e.id}>{e.title}</span>
             ))}
           </div>
           <div className="flex flex-col gap-2 text-sm md:w-auto w-full">

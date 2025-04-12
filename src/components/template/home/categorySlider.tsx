@@ -16,7 +16,7 @@ export default function () {
     rtl: true,
   });
   return (
-    <section className="w-full lg:mt-16 mt-6 lg:px-0 px-2">
+    <section className="w-full lg:mt-16 mt-6">
       <div
         ref={(ref) => {
           sliderRef.current = ref;
