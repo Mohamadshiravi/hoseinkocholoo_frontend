@@ -7,23 +7,23 @@ export default function Footer() {
   const { data } = useTypedSelector((state) => state.categories);
   return (
     <footer>
-      <div className="flex justify-between bg-zinc-50 py-10 px-32 text-zinc-500">
+      <div className="flex md:flex-row flex-col md:items-start gap-8 items-center justify-between bg-zinc-50 sm:py-10 py-4 lg:px-32 sm:px-10 px-4 text-zinc-500">
         <div className="flex items-center justify-center text-6xl font-black ">
           LOGO
         </div>
-        <div className="flex flex-col gap-2 text-sm">
+        <div className="flex flex-col gap-2 text-sm md:w-auto w-full">
           {data?.slice(0, 8).map((e) => (
             <span>{e.title}</span>
           ))}
         </div>
-        <div className="flex flex-col gap-2 text-sm">
+        <div className="flex flex-col gap-2 text-sm md:w-auto w-full">
           <span>وبلاگ</span>
           <span>پرسش های متداول</span>
           <span>شرایط بازگشت کالا</span>
           <span>همکاری تجاری</span>
           <span>درباره ما</span>
         </div>
-        <div className="flex flex-col gap-1 w-[200px]">
+        <div className="flex flex-col gap-1 md:w-[200px] w-full">
           <span className="moraba-regular text-lg">ارتباط با ما</span>
           <div className="flex items-center gap-1">
             <LuPhoneCall />
