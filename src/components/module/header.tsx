@@ -65,12 +65,14 @@ export default function Header() {
                 <div key={e.id}>
                   <h4 className="flex items-center gap-2">
                     <span className="bg-red-600 w-[5px] aspect-square block"></span>
-                    <span className="vazir-bold">{e.title}</span>
+                    <span className="vazir-bold moraba-bold">{e.title}</span>
                     <IoIosArrowBack />
                   </h4>
                   <div className="flex flex-col gap-1 mt-2 text-zinc-500">
                     {e.subcategories.map((e) => (
-                      <span key={e.id}>{e.title}</span>
+                      <span key={e.id} className="moraba-regular">
+                        {e.title}
+                      </span>
                     ))}
                   </div>
                 </div>
@@ -123,7 +125,7 @@ export default function Header() {
             </div>
           </div>
         </div>
-        <div className=" items-center justify-center text-sm vazir-medium lg:flex hidden">
+        <div className=" items-center justify-center text-sm moraba-regular lg:flex hidden">
           {categories?.map((e) => (
             <span
               onMouseEnter={() => setHoverMenu(e)}

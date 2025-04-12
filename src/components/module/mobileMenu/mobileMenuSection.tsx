@@ -23,7 +23,7 @@ export default function MobileMenuSection({
         <IoIosArrowBack />
       </button>
       <div>
-        <h4 className="vazir-medium text-zinc-700 border-b pb-3 border-zinc-200">
+        <h4 className="moraba-bold text-lg text-zinc-700 border-b pb-3 border-zinc-200">
           دسته بندی محصولات
         </h4>
         <ul className="flex flex-col gap-6 py-3">
@@ -35,7 +35,7 @@ export default function MobileMenuSection({
               >
                 <div className="flex items-center gap-2">
                   <span className="bg-red-600 w-[4px] aspect-square block"></span>
-                  <span>{e.title}</span>
+                  <span className="moraba-bold">{e.title}</span>
                 </div>
                 <IoIosArrowBack
                   className={`${
@@ -52,7 +52,7 @@ export default function MobileMenuSection({
                   <div key={e.id} className="px-3 mt-2">
                     <h4 className="flex items-center gap-2">
                       <span className="bg-red-600 w-[3px] h-[3px] block"></span>
-                      <span>{e.title}</span>
+                      <span className="moraba-regular">{e.title}</span>
                     </h4>
                     <div className="flex flex-col gap-1 mt-2 text-zinc-500">
                       {e.subcategories.map((e) => (

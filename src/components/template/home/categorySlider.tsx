@@ -45,7 +45,7 @@ export default function () {
                   src={e.banner}
                   alt={e.title}
                 />
-                <span className="vazir-bold text-center text-sm">
+                <span className="moraba-bold text-center text-sm">
                   {e.title}
                 </span>
               </div>
