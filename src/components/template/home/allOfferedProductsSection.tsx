@@ -34,8 +34,11 @@ export default function AllOfferedProductsSection() {
       className="w-full relative lg:mt-16 mt-6 flex flex-col gap-3"
     >
       {loading
-        ? Array.from({ length: 2 }).map((e, i) => (
-            <div className="bg-zinc-200 w-full h-[250px] rounded-lg"></div>
+        ? Array.from({ length: 3 }).map((e, i) => (
+            <div
+              key={i}
+              className="bg-zinc-200 w-full h-[250px] lg:rounded-lg"
+            ></div>
           ))
         : sortedProducts?.map((discount) => (
             <div

@@ -68,8 +68,6 @@ export const fetchSortedProductByDiscountFromServer = createAsyncThunk(
     const res = await axiosInstance.get(
       "products/products/discounts/?format=json"
     );
-    console.log(res.data);
-
     return res.data;
   }
 );
