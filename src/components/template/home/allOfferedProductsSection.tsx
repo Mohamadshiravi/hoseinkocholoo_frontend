@@ -1,8 +1,7 @@
 import { useKeenSlider } from "keen-slider/react";
 import { useEffect, useRef } from "react";
-import { fetchOfferedProductsFromServer } from "../../../redux/slices/products";
+import { fetchSortedProductByDiscountFromServer } from "../../../redux/slices/products";
 import { useTypedDispatch, useTypedSelector } from "../../../redux/typedhooks";
-import { IoIosArrowBack } from "react-icons/io";
 import "keen-slider/keen-slider.min.css";
 import ProductCard from "../../module/productCard";
 
@@ -18,74 +17,49 @@ export default function AllOfferedProductsSection() {
     mode: "free-snap",
   });
 
-  const offeredProducts = useTypedSelector((state) => state.products)
-    .offeredProducts.data;
+  const sortedProducts = useTypedSelector((state) => state.products)
+    .sortedByDiscount.data;
   const loading = useTypedSelector((state) => state.products).offeredProducts
     .loading;
 
   useEffect(() => {
-    dispatch(fetchOfferedProductsFromServer());
+    dispatch(fetchSortedProductByDiscountFromServer());
   }, []);
-
-  const discountTypes = ["تخفیف تابستانه", "تخفیف عیدانه"];
 
   const dispatch = useTypedDispatch();
   return (
-    <section dir="rtl" className="w-full relative lg:mt-16 mt-6 lg:rounded-lg">
-      <div className="relative">
-        <div
-          ref={(ref) => {
-            sliderRef.current = ref;
-            sliderInstanceRef(ref);
-          }}
-          className="keen-slider"
-        >
-          <div className="keen-slider__slide justify-between bg-zinc-100 p-4 text-zinc-800 lg:rounded-lg rounded-l-lg flex flex-col items-center !min-w-[150px] !max-w-[150px] flex-shrink-0">
-            <h2 className="flex items-center gap-1 vazir-black text-2xl text-center">
-              {discountTypes[0]}
-            </h2>
-            <span className="vazir-black text-5xl text-zinc-300">%</span>
-          </div>
-          {!loading
-            ? offeredProducts
-                ?.filter((e) => e.discount.name === discountTypes[0])
-                .map((product) => (
+    <section
+      dir="rtl"
+      className="w-full relative lg:mt-16 mt-6 flex flex-col gap-3"
+    >
+      {loading
+        ? Array.from({ length: 2 }).map((e, i) => (
+            <div className="bg-zinc-200 w-full h-[250px] rounded-lg"></div>
+          ))
+        : sortedProducts?.map((discount) => (
+            <div
+              key={discount.id}
+              className="relative bg-zinc-50 p-3 rounded-lg"
+            >
+              <div className="flex justify-between items-center gap-3">
+                <h3 className="text-2xl px-2 moraba-bold">{discount.name}</h3>
+                <button className="bg-primary cursor-pointer rounded-md px-4 py-1 text-white text-sm">
+                  مشاهده همه
+                </button>
+              </div>
+              <div
+                ref={(ref) => {
+                  sliderRef.current = ref;
+                  sliderInstanceRef(ref);
+                }}
+                className="keen-slider mt-2"
+              >
+                {discount.products.map((product) => (
                   <ProductCard product={product} key={product.id} offered />
-                ))
-            : Array.from({ length: 5 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="keen-slider__slide bg-zinc-200 h-[250px] !min-w-[200px] !max-w-[200px] p-2 rounded-lg flex-shrink-0 flex flex-col"
-                ></div>
-              ))}
-        </div>
-        <div
-          ref={(ref) => {
-            sliderRef.current = ref;
-            sliderInstanceRef(ref);
-          }}
-          className="keen-slider mt-3"
-        >
-          <div className="keen-slider__slide justify-between bg-zinc-100 p-4 text-zinc-800 lg:rounded-lg rounded-l-lg flex flex-col items-center !min-w-[150px] !max-w-[150px] flex-shrink-0">
-            <h2 className="flex items-center gap-1 vazir-black text-2xl text-center">
-              {discountTypes[1]}
-            </h2>
-            <span className="vazir-black text-5xl text-zinc-300">%</span>
-          </div>
-          {!loading
-            ? offeredProducts
-                ?.filter((e) => e.discount.name === discountTypes[1])
-                .map((product) => (
-                  <ProductCard product={product} key={product.id} offered />
-                ))
-            : Array.from({ length: 5 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="keen-slider__slide bg-zinc-200 h-[250px] !min-w-[200px] !max-w-[200px] p-2 rounded-lg flex-shrink-0 flex flex-col"
-                ></div>
-              ))}
-        </div>
-      </div>
+                ))}
+              </div>
+            </div>
+          ))}
     </section>
   );
 }

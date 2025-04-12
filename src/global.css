@@ -43,6 +43,36 @@ body {
 .vazir-black {
   font-family: "vazir-black";
 }
+@font-face {
+  font-family: "moraba-regular";
+  src: url("/font/moraba/Morabba-Regular.woff2");
+}
+.moraba-regular {
+  font-family: "moraba-regular";
+  -moz-font-feature-settings: "ss01";
+  -webkit-font-feature-settings: "ss01";
+  font-feature-settings: "ss01";
+}
+@font-face {
+  font-family: "moraba-bold";
+  src: url("/font/moraba/Morabba-Bold.woff2");
+}
+.moraba-bold {
+  font-family: "moraba-bold";
+  -moz-font-feature-settings: "ss01";
+  -webkit-font-feature-settings: "ss01";
+  font-feature-settings: "ss01";
+}
+@font-face {
+  font-family: "moraba-heavy";
+  src: url("/font/moraba/Morabba-Heavy.woff2");
+}
+.moraba-heavy {
+  font-family: "moraba-heavy";
+  -moz-font-feature-settings: "ss01";
+  -webkit-font-feature-settings: "ss01";
+  font-feature-settings: "ss01";
+}
 
 .noScrollbar::-webkit-scrollbar {
   display: none;
