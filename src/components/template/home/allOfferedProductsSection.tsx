@@ -15,7 +15,6 @@ export default function AllOfferedProductsSection() {
     },
     drag: true,
     rtl: true,
-    mode: "free-snap",
   });
 
   const sortedProducts = useTypedSelector((state) => state.products)
