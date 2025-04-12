@@ -7,8 +7,6 @@ import MobileMenuSection from "./mobileMenu/mobileMenuSection";
 import { useTypedDispatch, useTypedSelector } from "../../redux/typedhooks";
 import { fetchCategoriesFromServer } from "../../redux/slices/categories";
 import { HiOutlineMenu } from "react-icons/hi";
-import { PiShoppingCartSimpleLight, PiUserLight } from "react-icons/pi";
-import { MdOutlineAccountBalanceWallet } from "react-icons/md";
 import { LuWallet } from "react-icons/lu";
 
 export default function Header() {
