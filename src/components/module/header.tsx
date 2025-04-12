@@ -126,15 +126,22 @@ export default function Header() {
           </div>
         </div>
         <div className=" items-center justify-center text-sm moraba-regular lg:flex hidden">
-          {categories?.map((e) => (
-            <span
-              onMouseEnter={() => setHoverMenu(e)}
-              key={e.id}
-              className="cursor-pointer after:transition-all px-4 after:content-[''] relative after:h-[2px] after:w-[0%] hover:after:w-[100%] after:bg-zinc-800 after:absolute after:-bottom-[13px] after:-right-0"
-            >
-              {e.title}
-            </span>
-          ))}
+          {loading
+            ? Array.from({ length: 6 }).map((_, i) => (
+                <span
+                  key={i}
+                  className="w-[60px] h-[25px] bg-zinc-200 mx-4"
+                ></span>
+              ))
+            : categories?.map((e) => (
+                <span
+                  onMouseEnter={() => setHoverMenu(e)}
+                  key={e.id}
+                  className="cursor-pointer after:transition-all px-4 after:content-[''] relative after:h-[2px] after:w-[0%] hover:after:w-[100%] after:bg-zinc-800 after:absolute after:-bottom-[13px] after:-right-0"
+                >
+                  {e.title}
+                </span>
+              ))}
           <span className="text-xl">|</span>
           <span className="flex items-center gap-1 text-primary cursor-pointer px-4">
             <AiOutlineFire className="text-base" />

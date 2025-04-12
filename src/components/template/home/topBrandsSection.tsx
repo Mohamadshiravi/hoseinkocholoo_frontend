@@ -16,7 +16,10 @@ export default function TopBrandsSection() {
       <div className="grid md:grid-cols-[1.5fr_1.5fr_1.5fr_1.5fr_1.5fr_1.5fr_1.5fr_1.5fr] grid-cols-[3fr_3fr_3fr_3fr] gap-3 mt-3">
         {loading
           ? Array.from({ length: 8 }).map((_, i) => (
-              <div className="w-full aspect-square bg-zinc-200 rounded-sm"></div>
+              <div
+                key={i}
+                className="w-full aspect-square bg-zinc-200 rounded-sm"
+              ></div>
             ))
           : data?.map((e) => (
               <div className="w-full aspect-square group relative transition-all border border-zinc-300 p-3 rounded-sm cursor-pointer flex items-center justify-center">

@@ -7,7 +7,7 @@ export default function () {
   const { data, loading } = useTypedSelector((state) => state.categories);
 
   const sliderRef = useRef<HTMLDivElement | null>(null);
-  const [sliderInstanceRef, slider] = useKeenSlider<HTMLDivElement>({
+  const [sliderInstanceRef, _] = useKeenSlider<HTMLDivElement>({
     slides: {
       perView: "auto",
       spacing: 30,

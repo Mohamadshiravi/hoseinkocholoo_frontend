@@ -8,7 +8,7 @@ import ProductCard from "../../module/productCard";
 
 export default function OfferedProductsSection() {
   const sliderRef = useRef<HTMLDivElement | null>(null);
-  const [sliderInstanceRef, slider] = useKeenSlider<HTMLDivElement>({
+  const [sliderInstanceRef, _] = useKeenSlider<HTMLDivElement>({
     slides: {
       perView: "auto",
       spacing: 12,

@@ -8,7 +8,7 @@ import { IoIosArrowBack } from "react-icons/io";
 
 export default function AllOfferedProductsSection() {
   const sliderRef = useRef<HTMLDivElement | null>(null);
-  const [sliderInstanceRef, slider] = useKeenSlider<HTMLDivElement>({
+  const [sliderInstanceRef, _] = useKeenSlider<HTMLDivElement>({
     slides: {
       perView: "auto",
       spacing: 12,
@@ -34,7 +34,7 @@ export default function AllOfferedProductsSection() {
       className="w-full relative lg:mt-16 mt-6 flex flex-col gap-3"
     >
       {loading
-        ? Array.from({ length: 3 }).map((e, i) => (
+        ? Array.from({ length: 3 }).map((_, i) => (
             <div
               key={i}
               className="bg-zinc-200 w-full h-[250px] lg:rounded-lg"

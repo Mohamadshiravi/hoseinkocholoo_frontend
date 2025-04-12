@@ -1,10 +1,9 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
-import { useState } from "react";
 
 export default function BannerSliderSection() {
-  const [swiperSlides, setSwiperSlides] = useState(["Slide 1", "Slide 2"]);
+  const swiperSlides = ["Slide 1", "Slide 2"];
   return (
     <Swiper
       className="max-h-[200px] mt-8"
