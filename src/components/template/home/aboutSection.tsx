@@ -13,7 +13,7 @@ export default function AboutSection() {
     { id: 3, src: "/img/layers/Artboard_2-min.webp", title: " ارسال اکسپرس" },
   ];
   return (
-    <section className="sm:my-20 my-10">
+    <section className="sm:my-20 my-10 px-1">
       <div className="flex items-center justify-center sm:gap-20 gap-6 flex-wrap">
         {artBoardArray.map((e) => (
           <div key={e.id} className="flex flex-col gap-1 items-center">
@@ -29,9 +29,11 @@ export default function AboutSection() {
         ))}
       </div>
       <div className="mt-10">
-        <h1 className="text-4xl moraba-bold">فروشگاه اینترنتی مدیسه</h1>
-        <div className="flex gap-6">
-          <p className="text-justify mt-10">
+        <h1 className="sm:text-4xl text-2xl moraba-bold">
+          فروشگاه اینترنتی مدیسه
+        </h1>
+        <div className="flex md:flex-row flex-col gap-6 sm:mt-10 mt-4">
+          <p className="text-justify sm:text-base text-sm">
             فروشگاه اینترنتی مدیسه که فعالیت خود را سال ۱۳۹۴ آغاز کرده، امروز به
             یک فروشگاه چندمنظوره پویا و جامع تبدیل شده است. ما در مدیسه افتخار
             داریم که طیف گسترده‌ای از محصولات شامل پوشاک و لوازم متنوع برای
@@ -51,7 +53,7 @@ export default function AboutSection() {
             لذت‌بخش از خرید اینترنتی را برای شما رقم بزنیم.{" "}
             <span className="text-primary">بیشتر بخوانید</span>
           </p>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center justify-center gap-2">
             <div className="bg-zinc-100 w-[80px] aspect-square"></div>
             <div className="bg-zinc-100 w-[80px] aspect-square"></div>
             <div className="bg-zinc-100 w-[80px] aspect-square"></div>
