@@ -116,7 +116,7 @@ export default function Header() {
         >
           <div className="flex items-center justify-center w-full">
             <div className="flex items-center gap-2 h-[45px] w-full border border-zinc-300 rounded-md px-4">
-              <IoSearchOutline className="text-3xl" />
+              <IoSearchOutline className="text-3xl text-zinc-600" />
               <input
                 placeholder="جستجو"
                 type="text"
@@ -129,7 +129,7 @@ export default function Header() {
             <span className="text-base border border-zinc-300 px-3 h-full rounded-md flex items-center gap-2 vazir-medium text-zinc-600">
               {(100000).toLocaleString()} <span className="text-xs ">ت</span>
               <span className="">|</span>
-              <LuWallet className="text-2xl " />
+              <LuWallet className="text-2xl" />
             </span>
           </div>
         </div>
