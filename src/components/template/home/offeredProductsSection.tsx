@@ -38,15 +38,14 @@ export default function OfferedProductsSection() {
           }}
           className="keen-slider"
         >
-          <div className="keen-slider__slide bg-primary p-4 lg:rounded-lg rounded-l-lg flex flex-col items-center justify-between !min-w-[150px] !max-w-[150px] text-white flex-shrink-0">
-            <img src="/img/layers/Amazings.svg" className="w-[90px]" />
-            <div className="flex items-center gap-1">
-              <span className="bg-zinc-100 w-[30px] h-[30px] rounded-md"></span>
-              <span className="bg-zinc-100 w-[30px] h-[30px] rounded-md"></span>
-              <span className="bg-zinc-100 w-[30px] h-[30px] rounded-md"></span>
-            </div>
+          <div className="keen-slider__slide bg-zinc-50 p-4 lg:rounded-lg rounded-l-lg flex flex-col items-center justify-between !min-w-[150px] !max-w-[150px]  flex-shrink-0">
+            <h3 className="flex flex-col items-center moraba-bold text-2xl gap-1 ">
+              <span>پیشنهاد</span>
+              <span>شگفت</span>
+              <span>انگیز</span>
+            </h3>
 
-            <button className="text-sm vazir-medium flex items-center gap-1">
+            <button className="text-sm vazir-medium flex items-center gap-1 moraba-regular">
               مشاهده همه <IoIosArrowBack />
             </button>
           </div>
