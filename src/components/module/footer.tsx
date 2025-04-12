@@ -1,6 +1,5 @@
-import { LuLocate, LuMail, LuPhoneCall } from "react-icons/lu";
+import { LuMail, LuPhoneCall } from "react-icons/lu";
 import { useTypedSelector } from "../../redux/typedhooks";
-import { MdMailOutline } from "react-icons/md";
 import { IoLocationOutline } from "react-icons/io5";
 
 export default function Footer() {
@@ -11,17 +10,19 @@ export default function Footer() {
         <div className="flex items-center justify-center text-6xl font-black ">
           LOGO
         </div>
-        <div className="flex flex-col gap-2 text-sm md:w-auto w-full">
-          {data?.slice(0, 8).map((e) => (
-            <span>{e.title}</span>
-          ))}
-        </div>
-        <div className="flex flex-col gap-2 text-sm md:w-auto w-full">
-          <span>وبلاگ</span>
-          <span>پرسش های متداول</span>
-          <span>شرایط بازگشت کالا</span>
-          <span>همکاری تجاری</span>
-          <span>درباره ما</span>
+        <div className="flex md:items-start items-center gap-30">
+          <div className="flex flex-col gap-2 text-sm md:w-auto w-full">
+            {data?.slice(0, 8).map((e) => (
+              <span>{e.title}</span>
+            ))}
+          </div>
+          <div className="flex flex-col gap-2 text-sm md:w-auto w-full">
+            <span>وبلاگ</span>
+            <span>پرسش های متداول</span>
+            <span>شرایط بازگشت کالا</span>
+            <span>همکاری تجاری</span>
+            <span>درباره ما</span>
+          </div>
         </div>
         <div className="flex flex-col gap-1 md:w-[200px] w-full">
           <span className="moraba-regular text-lg">ارتباط با ما</span>

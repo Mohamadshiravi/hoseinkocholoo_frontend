@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import { AiOutlineFire } from "react-icons/ai";
-import { FiUser } from "react-icons/fi";
 import { IoSearchOutline } from "react-icons/io5";
-import { LuMenu, LuShoppingCart } from "react-icons/lu";
-import axiosInstance from "../../utils/axios/axios";
 import CategoriesType from "../../types/categories";
 import { IoIosArrowBack } from "react-icons/io";
 import MobileMenuSection from "./mobileMenu/mobileMenuSection";
 import { useTypedDispatch, useTypedSelector } from "../../redux/typedhooks";
 import { fetchCategoriesFromServer } from "../../redux/slices/categories";
+import { HiOutlineMenu } from "react-icons/hi";
+import { PiShoppingCartSimpleLight, PiUserLight } from "react-icons/pi";
 
 export default function Header() {
   const [hoverMenu, setHoverMenu] = useState<CategoriesType | false>();
@@ -94,19 +93,23 @@ export default function Header() {
             }}
             className="text-3xl cursor-pointer lg:hidden block"
           >
-            <LuMenu />
+            <HiOutlineMenu />
           </button>
           <h4 className="w-full text-3xl text-center font-black">LOGO</h4>
           <div className="items-center gap-3 text-2xl lg:hidden flex">
-            <FiUser />
-            <LuShoppingCart />
+            <PiUserLight />
+            <span className="text-sm">|</span>
+            <PiShoppingCartSimpleLight />
           </div>
         </div>
         <div onMouseEnter={() => setHoverMenu(false)} className="relative">
-          <div className="items-center gap-3 text-2xl absolute top-2 left-0 lg:flex hidden">
-            <FiUser />
-            <span className="text-lg">|</span>
-            <LuShoppingCart />
+          <div className="items-center gap-3 text-2xl absolute top-2 left-0 lg:flex hidden px-4">
+            <PiUserLight />
+            <span className="text-sm">|</span>
+            <PiShoppingCartSimpleLight />
+            <span className="text-sm bg-zinc-100 px-2 py-1 rounded-sm">
+              {(100000).toLocaleString()} ت
+            </span>
           </div>
           <div className="flex items-center justify-center">
             <div className="flex items-center gap-2 lg:w-[500px] w-full border border-zinc-300 rounded-2xl px-4 py-1.5">
