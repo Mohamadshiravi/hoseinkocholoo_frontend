@@ -18,8 +18,11 @@ export default function MobileNavbar() {
             دسته بندی و جستجو
           </span>
         </Link>
-        <Link to={"/"} className="flex flex-col items-center gap-1">
-          <img src="/img/logo/logo.png" alt="logo" className="w-[40px]" />
+        <Link
+          to={"/"}
+          className="flex flex-col items-center gap-1 bg-white rounded-full scale-[140%]"
+        >
+          <img src="/img/logo/logo-2.png" alt="logo" className="w-[40px]" />
         </Link>
         <li className="flex flex-col items-center gap-1">
           <CiHeart className="text-2xl" />

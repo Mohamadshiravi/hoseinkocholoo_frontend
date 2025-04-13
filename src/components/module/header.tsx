@@ -87,7 +87,7 @@ export default function Header() {
           </div>
         </section>
       )}
-      <header className="relative lg:px-32 sm:px-4 px-3 py-2 flex flex-col lg:gap-3 gap-0 border-b bg-white border-zinc-200 z-30">
+      <header className="relative lg:px-32 sm:px-4 lg:py-0 py-2 px-3 flex flex-col border-b bg-white border-zinc-200 z-30">
         <div className="flex items-center relative">
           <button
             onClick={() => {
@@ -98,10 +98,11 @@ export default function Header() {
           >
             <HiOutlineMenu />
           </button>
-          <Link to={"/"} className=" w-full">
-            <h4 className="w-full sm:text-4xl text-3xl text-center moraba-bold h-[50px] flex items-center justify-center">
-              HK
-            </h4>
+          <Link to={"/"} className=" w-full flex items-center justify-center">
+            <img
+              src="/img/logo/logo-2.png"
+              className="lg:h-[70px] sm:h-[60px] h-[50px]"
+            />
           </Link>
           <div className="items-center gap-3 text-2xl lg:hidden flex h-[35px]">
             <span className="text-sm h-full rounded-md flex items-center gap-2 vazir-medium text-zinc-800">
@@ -134,7 +135,7 @@ export default function Header() {
             </span>
           </div>
         </div>
-        <div className="items-center justify-center text-sm moraba-regular lg:flex hidden">
+        <div className="items-center justify-center text-sm moraba-regular lg:flex hidden py-2">
           {loading
             ? Array.from({ length: 6 }).map((_, i) => (
                 <span
