@@ -1,5 +1,6 @@
 import { CiHeart, CiSearch } from "react-icons/ci";
 import { PiShoppingCartSimpleLight, PiUserLight } from "react-icons/pi";
+import { Link } from "react-router";
 
 export default function MobileNavbar() {
   return (
@@ -11,15 +12,15 @@ export default function MobileNavbar() {
             سبد خرید
           </span>
         </li>
-        <li className="flex flex-col items-center gap-1">
+        <Link to={"/categories"} className="flex flex-col items-center gap-1">
           <CiSearch className="text-2xl" />
           <span className="text-[10px] vazir-light moraba-regular">
             دسته بندی و جستجو
           </span>
-        </li>
-        <li className="flex flex-col items-center gap-1">
+        </Link>
+        <Link to={"/"} className="flex flex-col items-center gap-1">
           <img src="/img/logo/logo.png" alt="logo" className="w-[40px]" />
-        </li>
+        </Link>
         <li className="flex flex-col items-center gap-1">
           <CiHeart className="text-2xl" />
           <span className="text-[10px] vazir-light moraba-regular">

@@ -48,8 +48,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="bg-zinc-200 w-full text-center px-6 py-3 text-zinc-500 text-sm">
-        © تمامی حقوق متعلق به | فروشگاه آنلاین مدیسه (شرکت توسعه تجارت الکترونیک
-        گلستان) میباشد.
+        © تمامی حقوق متعلق به | فروشگاه آنلاین پوشاک حسین کوچولو میباشد
       </div>
     </footer>
   );

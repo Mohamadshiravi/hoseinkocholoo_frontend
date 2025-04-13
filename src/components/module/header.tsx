@@ -8,6 +8,7 @@ import { useTypedDispatch, useTypedSelector } from "../../redux/typedhooks";
 import { fetchCategoriesFromServer } from "../../redux/slices/categories";
 import { HiOutlineMenu } from "react-icons/hi";
 import { LuWallet } from "react-icons/lu";
+import { Link } from "react-router";
 
 export default function Header() {
   const [hoverMenu, setHoverMenu] = useState<CategoriesType | false>();
@@ -97,9 +98,11 @@ export default function Header() {
           >
             <HiOutlineMenu />
           </button>
-          <h4 className="w-full sm:text-2xl text-base text-center moraba-bold h-[50px] flex items-center justify-center">
-            پوشاک حسین کوچولو
-          </h4>
+          <Link to={"/"} className=" w-full">
+            <h4 className="w-full sm:text-4xl text-3xl text-center moraba-bold h-[50px] flex items-center justify-center">
+              HK
+            </h4>
+          </Link>
           <div className="items-center gap-3 text-2xl lg:hidden flex h-[35px]">
             <span className="text-sm h-full rounded-md flex items-center gap-2 vazir-medium text-zinc-800">
               {(100000).toLocaleString()} <span className="text-xs">ت</span>
@@ -113,18 +116,18 @@ export default function Header() {
           className="relative flex items-center justify-center gap-2"
         >
           <div className="flex items-center justify-center w-full">
-            <div className="flex items-center gap-2 h-[45px] w-full border border-zinc-300 rounded-md px-4">
+            <div className="flex items-center gap-2 sm:h-[45px] h-[40px] w-full bg-zinc-100 rounded-md px-4">
               <IoSearchOutline className="text-3xl text-zinc-600" />
               <input
                 placeholder="جستجو"
                 type="text"
-                className="outline-none w-full h-full"
+                className="outline-none w-full h-full text-sm"
               />
               <span>/</span>
             </div>
           </div>
           <div className="items-center gap-3 text-2xl lg:flex hidden h-[45px]">
-            <span className="text-base border border-zinc-300 px-3 h-full rounded-md flex items-center gap-2 vazir-medium text-zinc-600">
+            <span className="text-base  bg-zinc-100 px-3 h-full rounded-md flex items-center gap-2 vazir-medium text-zinc-600">
               {(100000).toLocaleString()} <span className="text-xs ">ت</span>
               <span className="">|</span>
               <LuWallet className="text-2xl" />
@@ -140,13 +143,14 @@ export default function Header() {
                 ></span>
               ))
             : categories?.map((e) => (
-                <span
+                <Link
+                  to={`/categories/${e.slug}`}
                   onMouseEnter={() => setHoverMenu(e)}
                   key={e.id}
                   className="cursor-pointer after:transition-all px-4 after:content-[''] relative after:h-[2px] after:w-[0%] hover:after:w-[100%] after:bg-zinc-800 after:absolute after:-bottom-[13px] after:-right-0"
                 >
                   {e.title}
-                </span>
+                </Link>
               ))}
           <span className="text-xl">|</span>
           <span className="flex items-center gap-1 text-primary cursor-pointer px-4">
