@@ -5,10 +5,11 @@ import Home from "./components/template/home/home";
 import AllCategories from "./components/template/categories/allCategories";
 import Categories from "./components/template/categories/categories";
 import SubCategories from "./components/template/categories/subCategories";
+import ProductsSortedByCategories from "./components/template/products/productsSortedByCategories";
 
 function App() {
   return (
-    <main className="text-zinc-800 antialiased sm:mb-0 mb-16">
+    <main className="text-zinc-800 antialiased sm:mb-0 mb-18">
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -18,6 +19,11 @@ function App() {
         <Route
           path="/categories/:category/:subcategory"
           element={<SubCategories />}
+        />
+
+        <Route
+          path="/products/:category"
+          element={<ProductsSortedByCategories />}
         />
       </Routes>
       <MobileNavbar />

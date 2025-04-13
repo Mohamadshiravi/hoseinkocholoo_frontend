@@ -2,14 +2,20 @@ import ProductType from "../../types/products";
 
 export default function ProductCard({
   product,
-  offered,
+  inProducts,
 }: {
   product: ProductType;
-  offered?: boolean;
+  inProducts?: boolean;
 }) {
   return (
-    <div className="keen-slider__slide h-[250px] flex flex-col justify-between relative !min-w-[200px] !max-w-[200px] bg-white p-2 rounded-lg flex-shrink-0">
-      <div className="w-[130px] h-[130px] object-cover flex items-center justify-center m-auto">
+    <div
+      className={`${
+        inProducts
+          ? "shadow-lg border border-zinc-300"
+          : " keen-slider__slide !min-w-[200px] !max-w-[200px] flex-shrink-0"
+      } h-[270px] flex flex-col justify-between relative bg-white p-2 rounded-sm`}
+    >
+      <div className="w-full h-[150px] object-cover flex items-center justify-center m-auto">
         <img
           src={
             product.images.map((img) =>
@@ -20,12 +26,16 @@ export default function ProductCard({
           className="w-full h-full object-contain"
         />
       </div>
-      <h3 className="text-xs font-semibold mt-2 text-zinc-800 h-[30px] line-clamp-2 vazir-light">
+      <h3 className="text-xs font-semibold mt-2 text-zinc-800 h-[35px] line-clamp-2 vazir-light">
         {product.title}
       </h3>
 
-      <div className="flex items-center justify-between mt-2">
-        {offered && (
+      <div
+        className={`${
+          product.discount ? "justify-between" : "justify-center"
+        } flex items-center mt-2`}
+      >
+        {product.discount && (
           <span className="bg-primary w-[30px] h-[20px] rounded-sm flex items-center justify-center vazir-medium text-white text-xs">
             {product.discount.label}
           </span>

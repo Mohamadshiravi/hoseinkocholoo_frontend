@@ -144,7 +144,8 @@ export default function Header() {
               ))
             : categories?.map((e) => (
                 <Link
-                  to={`/categories/${e.slug}`}
+                  onClick={() => setHoverMenu(false)}
+                  to={`/products/${e.slug}`}
                   onMouseEnter={() => setHoverMenu(e)}
                   key={e.id}
                   className="cursor-pointer after:transition-all px-4 after:content-[''] relative after:h-[2px] after:w-[0%] hover:after:w-[100%] after:bg-zinc-800 after:absolute after:-bottom-[13px] after:-right-0"

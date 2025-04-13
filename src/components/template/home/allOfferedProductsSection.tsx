@@ -63,7 +63,7 @@ export default function AllOfferedProductsSection() {
                   </button>
                 </div>
                 {discount.products.map((product) => (
-                  <ProductCard product={product} key={product.id} offered />
+                  <ProductCard product={product} key={product.id} />
                 ))}
               </div>
             </div>

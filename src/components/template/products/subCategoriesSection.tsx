@@ -1,12 +1,16 @@
-import { useTypedSelector } from "../../../redux/typedhooks";
 import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
 import { useRef } from "react";
 import { Link } from "react-router";
+import CategoriesType from "../../../types/categories";
 
-export default function CategorySlider() {
-  const { data, loading } = useTypedSelector((state) => state.categories);
-
+export default function SubCategorySection({
+  data,
+  loading,
+}: {
+  data: CategoriesType[] | undefined;
+  loading: boolean;
+}) {
   const sliderRef = useRef<HTMLDivElement | null>(null);
   const [sliderInstanceRef, _] = useKeenSlider<HTMLDivElement>({
     slides: {
@@ -17,7 +21,7 @@ export default function CategorySlider() {
     rtl: true,
   });
   return (
-    <section className="w-full lg:mt-16 mt-6">
+    <section className="w-full sm:mt-4 mt-2">
       <div
         ref={(ref) => {
           sliderRef.current = ref;
@@ -26,27 +30,27 @@ export default function CategorySlider() {
         className="keen-slider"
       >
         {loading
-          ? Array.from({ length: 12 }).map((_, i) => (
+          ? Array.from({ length: 6 }).map((_, i) => (
               <div
                 key={i}
-                className="keen-slider__slide flex flex-col items-center gap-3 !min-w-[100px] !max-w-[100px]"
+                className="keen-slider__slide flex flex-col items-center gap-3 !min-w-[80px] !max-w-[80px]"
               >
                 <div className="rounded-full w-full aspect-square bg-zinc-200"></div>
-                <div className="sm:w-[80px] w-[70px] sm:h-[25px] h-[20px] bg-zinc-200"></div>
+                <div className=" w-[60px] h-[20px] bg-zinc-200"></div>
               </div>
             ))
           : data?.map((e) => (
               <Link
                 to={`/products/${e.slug}`}
                 key={e.id}
-                className="keen-slider__slide flex flex-col items-center gap-3 !min-w-[100px] !max-w-[100px]"
+                className="keen-slider__slide flex flex-col items-center gap-3 !min-w-[80px] !max-w-[80px]"
               >
                 <img
                   className="rounded-full w-full aspect-square object-cover"
                   src={e.banner}
                   alt={e.title}
                 />
-                <span className="moraba-bold text-center text-sm">
+                <span className="moraba-bold text-center text-xs">
                   {e.title}
                 </span>
               </Link>

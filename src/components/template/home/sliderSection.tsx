@@ -6,7 +6,7 @@ export default function SliderSection() {
   const swiperSlides = ["Slide 1", "Slide 2"];
   return (
     <Swiper
-      className="md:h-[450px] h-[400px]"
+      className="sm:h-[300px] h-[250px]"
       loop={true}
       modules={[Autoplay]}
       autoplay={{ delay: 5000, disableOnInteraction: false }}
