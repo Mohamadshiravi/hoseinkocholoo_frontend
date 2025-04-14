@@ -1,31 +1,58 @@
 import { Route, Routes } from "react-router";
-import Header from "./components/module/header";
 import MobileNavbar from "./components/module/mobileNavbar";
 import Home from "./components/template/home/home";
-import AllCategories from "./components/template/categories/allCategories";
-import Categories from "./components/template/categories/categories";
-import SubCategories from "./components/template/categories/subCategories";
-import ProductsSortedByCategories from "./components/template/products/productsSortedByCategories";
+import LoginForm from "./components/template/login/loginForm";
+import { Toaster } from "react-hot-toast";
+import { lazy, Suspense } from "react";
+import SpinnerLoader from "./components/module/loader";
+import Profile from "./components/template/profile/profile";
+import ProfileMenu from "./components/module/profileMenu";
+
+const AllCategories = lazy(
+  () => import("./components/template/categories/allCategories")
+);
+const Categories = lazy(
+  () => import("./components/template/categories/categories")
+);
+const SubCategories = lazy(
+  () => import("./components/template/categories/subCategories")
+);
+
+const ProductsSortedByCategories = lazy(
+  () => import("./components/template/products/productsSortedByCategories")
+);
 
 function App() {
   return (
     <main className="text-zinc-800 antialiased sm:mb-0 mb-18">
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
+      <Suspense fallback={<SpinnerLoader />}>
+        <Routes>
+          <Route path="/" element={<Home />} />
 
-        <Route path="/categories" element={<AllCategories />} />
-        <Route path="/categories/:category" element={<Categories />} />
-        <Route
-          path="/categories/:category/:subcategory"
-          element={<SubCategories />}
-        />
+          {/* categories */}
+          <Route path="/categories" element={<AllCategories />} />
+          <Route path="/categories/:category" element={<Categories />} />
+          <Route
+            path="/categories/:category/:subcategory"
+            element={<SubCategories />}
+          />
 
-        <Route
-          path="/products/:category"
-          element={<ProductsSortedByCategories />}
-        />
-      </Routes>
+          {/* products */}
+          <Route
+            path="/products/:category"
+            element={<ProductsSortedByCategories />}
+          />
+
+          {/* auth */}
+          <Route path="/login" element={<LoginForm />} />
+
+          {/* userpanel - profile */}
+          <Route path="/profile" element={<ProfileMenu />} />
+          <Route path="/profile/orders" element={<Profile />} />
+        </Routes>
+      </Suspense>
+
+      <Toaster />
       <MobileNavbar />
     </main>
   );

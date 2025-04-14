@@ -30,12 +30,12 @@ export default function MobileNavbar() {
             علاقه مندی ها
           </span>
         </li>
-        <li className="flex flex-col items-center gap-1">
+        <Link to={"/profile"} className="flex flex-col items-center gap-1">
           <PiUserLight className="text-2xl" />
           <span className="text-[10px] vazir-light moraba-regular">
             پروفایل
           </span>
-        </li>
+        </Link>
       </ul>
     </nav>
   );

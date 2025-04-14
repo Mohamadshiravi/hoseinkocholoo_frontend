@@ -8,6 +8,7 @@ import axiosInstance from "../../../utils/axios/axios";
 import ProductCard from "../../module/productCard";
 import ProductType from "../../../types/products";
 import Footer from "../../module/footer";
+import Header from "../../module/header";
 
 export default function ProductsSortedByCategories() {
   const [productSort, setProductSort] = useState("newest");
@@ -15,26 +16,30 @@ export default function ProductsSortedByCategories() {
   const [loading, setLoading] = useState(true);
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const { category } = useParams();
+  const { category, page = 1 } = useParams();
 
   const { data } = useTypedSelector((state) => state.categories);
   const currentCategory = data?.filter((e) => e.slug === category)[0];
 
   useEffect(() => {
     FetchProducts();
-  }, [category]);
+  }, [category, productSort]);
 
   async function FetchProducts() {
     setLoading(true);
     const res = await axiosInstance.get(
-      `http://194.5.188.71/products/products/filtered/?format=json&category_slug=${category}`
+      `/products/products/filtered?category_slug=${category}&ordering=${productSort}&page=${2}`
     );
-    console.log(res.data, category);
+
+    console.log(res.data);
+
     setProducts(res.data);
     setLoading(false);
   }
+
   return (
     <>
+      <Header />
       <main className="w-full lg:px-32 sm:px-4 px-3 sm:py-8 py-3">
         <section className="flex items-center gap-2 text-xs text-zinc-500">
           <span>خانه</span>
@@ -111,10 +116,11 @@ export default function ProductsSortedByCategories() {
                 color="primary"
                 size="small"
               >
-                <MenuItem value={"newest"}>جدید ترین ها</MenuItem>
-                <MenuItem value={"oldest"}>قدیمی ترین ها</MenuItem>
-                <MenuItem value={"higest"}>گران ترین ها</MenuItem>
-                <MenuItem value={"lowest"}>ارزان ترین ها</MenuItem>
+                <MenuItem value={"newest"}>جدید ترین ها </MenuItem>
+                <MenuItem value={"most_cheapest"}>ارزان ترین ها </MenuItem>
+                <MenuItem value={"most_expensive"}>گران ترین ها </MenuItem>
+                <MenuItem value={"most_discount"}>پر تخفیف ترین ها</MenuItem>
+                <MenuItem value={"sold_count"}>پر فروش ترین ها </MenuItem>
               </Select>
             </div>
             <div className="w-full grid lg:grid-cols-[3fr_3fr_3fr_3fr] md:grid-cols-[4fr_4fr_4fr] grid-cols-[6fr_6fr] mt-2 gap-2">

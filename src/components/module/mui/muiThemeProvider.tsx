@@ -15,7 +15,7 @@ export default function MuiThemeProvider({
     createTheme({
       palette: {
         primary: {
-          main: "#ef394e",
+          main: "#bd274c",
         },
       },
       typography: {

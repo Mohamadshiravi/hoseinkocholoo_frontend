@@ -8,14 +8,16 @@ import BannersSectionSecondary from "./bannerSectionSecndary";
 import TopBrandsSection from "./topBrandsSection";
 import AboutSection from "./aboutSection";
 import Footer from "../../module/footer";
+import Header from "../../module/header";
 
 export default function Home() {
   return (
     <>
+      <Header />
       <main className="w-full lg:px-32 sm:px-4 px-3">
         <SliderSection />
         <CategorySlider />
-        <OfferedProductsSection />
+        {/* <OfferedProductsSection /> */}
         <BannersSection />
         <AllOfferedProductsSection />
         <BannerSliderSection />

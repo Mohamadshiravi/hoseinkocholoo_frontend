@@ -11,7 +11,7 @@ export default function ProductCard({
     <div
       className={`${
         inProducts
-          ? "shadow-lg border border-zinc-300"
+          ? "shadow-[2px_2px_6px] shadow-black/20 border border-zinc-300"
           : " keen-slider__slide !min-w-[200px] !max-w-[200px] flex-shrink-0"
       } h-[270px] flex flex-col justify-between relative bg-white p-2 rounded-sm`}
     >

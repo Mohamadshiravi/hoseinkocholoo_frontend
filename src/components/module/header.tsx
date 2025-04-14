@@ -9,6 +9,7 @@ import { fetchCategoriesFromServer } from "../../redux/slices/categories";
 import { HiOutlineMenu } from "react-icons/hi";
 import { LuWallet } from "react-icons/lu";
 import { Link } from "react-router";
+import { PiUserLight } from "react-icons/pi";
 
 export default function Header() {
   const [hoverMenu, setHoverMenu] = useState<CategoriesType | false>();
@@ -128,12 +129,25 @@ export default function Header() {
             </div>
           </div>
           <div className="items-center gap-3 text-2xl lg:flex hidden h-[45px]">
-            <span className="text-base  bg-zinc-100 px-3 h-full rounded-md flex items-center gap-2 vazir-medium text-zinc-600">
+            <span className="text-base  bg-zinc-100 px-3 h-full rounded-md flex items-center gap-2 vazir-medium text-zinc-800">
               {(100000).toLocaleString()} <span className="text-xs ">ت</span>
               <span className="">|</span>
               <LuWallet className="text-2xl" />
             </span>
           </div>
+          <Link
+            to={"/profile/orders"}
+            className="bg-zinc-800 text-white text-sm cursor-pointer hover:bg-zinc-800/90 transition moraba-regular flex items-center justify-center rounded-md sm:h-[45px] h-[40px] aspect-square"
+          >
+            <PiUserLight className="text-3xl" />
+          </Link>
+
+          <Link
+            to={"/login"}
+            className="bg-zinc-800 text-white text-sm cursor-pointer hover:bg-zinc-800/90 transition moraba-regular flex items-center justify-center rounded-md sm:h-[45px] h-[40px] w-[100px]"
+          >
+            <span>وارد شوید</span>
+          </Link>
         </div>
         <div className="items-center justify-center text-sm moraba-regular lg:flex hidden py-2">
           {loading
