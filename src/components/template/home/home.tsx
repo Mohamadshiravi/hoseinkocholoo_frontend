@@ -17,7 +17,7 @@ export default function Home() {
       <main className="w-full lg:px-32 sm:px-4 px-3">
         <SliderSection />
         <CategorySlider />
-        {/* <OfferedProductsSection /> */}
+        <OfferedProductsSection />
         <BannersSection />
         <AllOfferedProductsSection />
         <BannerSliderSection />

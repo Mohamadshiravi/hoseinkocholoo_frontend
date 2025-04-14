@@ -16,7 +16,7 @@ export default function ProductsSortedByCategories() {
   const [loading, setLoading] = useState(true);
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const { category, page = 1 } = useParams();
+  const { category } = useParams();
 
   const { data } = useTypedSelector((state) => state.categories);
   const currentCategory = data?.filter((e) => e.slug === category)[0];
