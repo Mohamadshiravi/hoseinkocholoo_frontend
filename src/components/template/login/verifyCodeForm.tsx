@@ -1,10 +1,18 @@
 import { Button } from "@mui/material";
-import { ChangeEvent, useEffect, useState } from "react";
-import { Link } from "react-router";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router";
+import axiosInstance from "../../../utils/axios/axios";
+import {
+  SendErrorToast,
+  SendSucToast,
+} from "../../../utils/helper/toastFunctions";
 
 export default function VerifyCodeForm({ phone }: { phone: string }) {
   const [seconds, setSeconds] = useState(120);
   const [code, setCode] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   function handleInputChange(e: ChangeEvent<HTMLInputElement>, index: number) {
     const codeClone: string[] = code;
@@ -35,9 +43,29 @@ export default function VerifyCodeForm({ phone }: { phone: string }) {
       return () => clearInterval(interval);
     }
   }, [seconds]);
+
+  async function VerifyCode(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    try {
+      setLoading(true);
+      const res = await axiosInstance.post("/auth/verify-otp/", {
+        phone_number: phone,
+        otp: code.join(""),
+      });
+
+      localStorage.setItem("token", res.data.access_token);
+      SendSucToast("خوش امدید");
+      setLoading(false);
+      navigate("/");
+    } catch (error) {
+      setLoading(false);
+      SendErrorToast("کد اشتباه است یا زمان ان تمام شده");
+    }
+  }
   return (
     <form
-      //   onSubmit={SendCode}
+      onSubmit={VerifyCode}
       className="bg-white border border-zinc-200 rounded-lg sm:p-8 p-4 flex flex-col items-center sm:w-[500px] w-[95%]"
     >
       <Link to={"/"}>
@@ -49,13 +77,13 @@ export default function VerifyCodeForm({ phone }: { phone: string }) {
         برای این شماره ارسال گردید.
       </h2>
       <div className="flex flex-row-reverse items-center gap-2 font-sans font-bold mt-6">
-        {[...Array(4)].map((_, i) => (
+        {[...Array(6)].map((_, i) => (
           <input
             id={`codeInp${i}`}
             key={i}
             maxLength={1}
             type="tel"
-            className="InpShadow outline-none focus:border-primary text-center bg-white border border-zinc-200 py-3 text-2xl rounded-md w-[60px] h-[60px] p-1"
+            className="InpShadow outline-none focus:border-primary text-center bg-white border border-zinc-200 py-3 text-2xl rounded-md sm:w-[50px] w-[40px] sm:h-[50px] h-[40px] p-1"
             onChange={(e) => handleInputChange(e, i)}
           />
         ))}
@@ -75,7 +103,13 @@ export default function VerifyCodeForm({ phone }: { phone: string }) {
         <Button type="submit" fullWidth variant="outlined" size="large">
           اصلاح شماره
         </Button>
-        <Button type="submit" fullWidth variant="contained" size="large">
+        <Button
+          loading={loading}
+          type="submit"
+          fullWidth
+          variant="contained"
+          size="large"
+        >
           ادامه
         </Button>
       </div>

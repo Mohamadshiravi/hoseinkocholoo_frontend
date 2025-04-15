@@ -11,24 +11,26 @@ import axiosInstance from "../../../utils/axios/axios";
 export default function LoginForm() {
   const [phone, setPhone] = useState("");
   const [isCodeSend, setIsCodeSend] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const regex = /^09\d{9}$/;
   async function SendCode(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (regex.test(phone)) {
       try {
+        setLoading(true);
         const res = await axiosInstance.post("/auth/send-otp/", {
           phone_number: phone,
         });
         SendSucToast("کد به شماره شما ارسال شد");
-        console.log(res, phone);
+        setPhone(res.data.phone_number);
+        setIsCodeSend(true);
+        console.log(res.data);
+        setLoading(false);
       } catch (error) {
-        console.log(error);
-
+        setLoading(false);
         SendErrorToast("مشکلی پیش امده");
       }
-
-      // setIsCodeSend(true);
     } else {
       SendErrorToast("لطفا شماره موبایل خود را درست وارد کنید");
     }
@@ -59,7 +61,13 @@ export default function LoginForm() {
             />
           </div>
           <div className="w-full mt-3">
-            <Button type="submit" fullWidth variant="contained" size="large">
+            <Button
+              loading={loading}
+              type="submit"
+              fullWidth
+              variant="contained"
+              size="large"
+            >
               ورود
             </Button>
           </div>
