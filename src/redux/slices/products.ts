@@ -51,7 +51,7 @@ export const fetchOfferedProductsFromServer = createAsyncThunk(
     const res = await axiosInstance.get(
       "products/products/filtered?has_discount=true"
     );
-    return res.data;
+    return res.data.results;
   }
 );
 
