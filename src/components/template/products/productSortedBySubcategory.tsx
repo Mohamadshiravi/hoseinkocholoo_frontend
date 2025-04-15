@@ -1,27 +1,33 @@
-import { IoIosArrowBack } from "react-icons/io";
-import { useTypedSelector } from "../../../redux/typedhooks";
-import { Link, useNavigate, useParams, useSearchParams } from "react-router";
-import SubCategorySection from "./subCategoriesSection";
-import { Pagination } from "@mui/material";
 import { useEffect, useState } from "react";
-import axiosInstance from "../../../utils/axios/axios";
+import { Link, useNavigate, useParams, useSearchParams } from "react-router";
 import ProductType from "../../../types/products";
-import Footer from "../../module/footer";
+import { useTypedSelector } from "../../../redux/typedhooks";
+import axiosInstance from "../../../utils/axios/axios";
 import Header from "../../module/header";
+import { IoIosArrowBack } from "react-icons/io";
+import SubCategorySection from "./subCategoriesSection";
 import RenderProductSection from "./renderProductsSection";
+import Footer from "../../module/footer";
+import { Pagination } from "@mui/material";
 
-export default function ProductsSortedByCategories() {
+export default function ProductsSortedBySubCategories() {
   const [productSort, setProductSort] = useState("newest");
   const [products, setProducts] = useState<ProductType[]>([]);
   const [totalPage, setTotalPage] = useState(1);
   const [loading, setLoading] = useState(true);
 
-  const { category } = useParams();
+  const { category, subcategory } = useParams();
   const [searchParams] = useSearchParams();
   const page = Number(searchParams.get("page")) || 1;
-
   const { data } = useTypedSelector((state) => state.categories);
-  const currentCategory = data?.filter((e) => e.slug === category)[0];
+
+  //bread crumb
+  const currentCategory = data
+    ?.filter((e) => e.slug === category)[0]
+    .subcategories.filter((e) => e.slug === subcategory)[0];
+
+  const prewCategory = data?.filter((e) => e.slug === category)[0];
+  //>
 
   const navigate = useNavigate();
 
@@ -32,8 +38,10 @@ export default function ProductsSortedByCategories() {
   async function FetchProducts() {
     setLoading(true);
     const res = await axiosInstance.get(
-      `/products/products/filtered?category_slug=${category}&ordering=${productSort}&page=${page}`
+      `/products/products/filtered?category_slug=${subcategory}&ordering=${productSort}&page=${page}`
     );
+
+    console.log(res.data);
 
     setTotalPage(res.data.total_count);
     setProducts(res.data.results);
@@ -52,6 +60,19 @@ export default function ProductsSortedByCategories() {
           {loading ? (
             <span className="bg-zinc-200 w-[80px] h-[20px]"></span>
           ) : (
+            <Link
+              to={`/products/${category}`}
+              className="vazir-medium text-zinc-800"
+            >
+              {prewCategory?.title}
+            </Link>
+          )}
+          <span>
+            <IoIosArrowBack />
+          </span>
+          {loading ? (
+            <span className="bg-zinc-200 w-[80px] h-[20px]"></span>
+          ) : (
             <span className="vazir-medium text-zinc-800">
               {currentCategory?.title}
             </span>
@@ -64,11 +85,14 @@ export default function ProductsSortedByCategories() {
             <h1 className="moraba-bold">{currentCategory?.title}</h1>
           )}
 
-          <SubCategorySection
-            category={category || ""}
-            data={currentCategory?.subcategories}
-            loading={loading}
-          />
+          {currentCategory?.subcategories && (
+            <SubCategorySection
+              data={currentCategory?.subcategories}
+              loading={loading}
+              category={category || ""}
+              subCategory={subcategory}
+            />
+          )}
         </section>
         <RenderProductSection
           loading={loading}

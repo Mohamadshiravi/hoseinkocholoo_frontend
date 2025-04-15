@@ -22,7 +22,11 @@ export default function Categories() {
               .subcategories.map((e) => (
                 <Link
                   key={e.id}
-                  to={`/categories/${category}/${e.slug}`}
+                  to={
+                    e.subcategories.length === 0
+                      ? `/products/${category}/${e.slug}`
+                      : `/categories/${category}/${e.slug}`
+                  }
                   className="w-full aspect-square relative"
                 >
                   <img

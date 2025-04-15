@@ -17,6 +17,7 @@ export default function AllCategories() {
             ))
           : data?.map((e) => (
               <Link
+                key={e.id}
                 to={`/categories/${e.slug}`}
                 className="w-full aspect-square relative"
               >

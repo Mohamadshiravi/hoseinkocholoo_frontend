@@ -24,7 +24,7 @@ export default function SubCategories() {
           : data?.subcategories.map((e) => (
               <Link
                 key={e.id}
-                to={`/categories/${e.slug}`}
+                to={`/products/${category}/${subcategory}/${e.slug}`}
                 className="w-full aspect-square relative"
               >
                 <img

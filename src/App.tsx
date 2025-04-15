@@ -7,6 +7,8 @@ import { lazy, Suspense } from "react";
 import SpinnerLoader from "./components/module/loader";
 import Profile from "./components/template/profile/profile";
 import ProfileMenu from "./components/module/profileMenu";
+import ProductsSortedBySubCategories from "./components/template/products/productSortedBySubcategory";
+import ProductsSortedByLevel2SubCategories from "./components/template/products/productSortedByLevel2Subcategory";
 
 const AllCategories = lazy(
   () => import("./components/template/categories/allCategories")
@@ -41,6 +43,14 @@ function App() {
           <Route
             path="/products/:category"
             element={<ProductsSortedByCategories />}
+          />
+          <Route
+            path="/products/:category/:subcategory"
+            element={<ProductsSortedBySubCategories />}
+          />
+          <Route
+            path="/products/:category/:subcategory/:level2subcategory"
+            element={<ProductsSortedByLevel2SubCategories />}
           />
 
           {/* auth */}

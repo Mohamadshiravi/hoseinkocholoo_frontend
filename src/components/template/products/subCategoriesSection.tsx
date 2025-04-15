@@ -7,9 +7,13 @@ import CategoriesType from "../../../types/categories";
 export default function SubCategorySection({
   data,
   loading,
+  category,
+  subCategory,
 }: {
   data: CategoriesType[] | undefined;
   loading: boolean;
+  category: string;
+  subCategory?: string;
 }) {
   const sliderRef = useRef<HTMLDivElement | null>(null);
   const [sliderInstanceRef, _] = useKeenSlider<HTMLDivElement>({
@@ -41,7 +45,11 @@ export default function SubCategorySection({
             ))
           : data?.map((e) => (
               <Link
-                to={`/products/${e.slug}`}
+                to={
+                  subCategory
+                    ? `/products/${category}/${subCategory}/${e.slug}`
+                    : `/products/${category}/${e.slug}`
+                }
                 key={e.id}
                 className="keen-slider__slide flex flex-col items-center gap-3 !min-w-[80px] !max-w-[80px]"
               >
