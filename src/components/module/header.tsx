@@ -10,6 +10,7 @@ import { HiOutlineMenu } from "react-icons/hi";
 import { LuWallet } from "react-icons/lu";
 import { Link } from "react-router";
 import { PiUserLight } from "react-icons/pi";
+import { fetchUserFavorites } from "../../redux/slices/user";
 
 export default function Header() {
   const [hoverMenu, setHoverMenu] = useState<CategoriesType | false>();
@@ -20,9 +21,14 @@ export default function Header() {
     (state) => state.categories
   );
 
+  const { favorites } = useTypedSelector((state) => state.user);
+
   useEffect(() => {
     if (!categories) {
       dispatch(fetchCategoriesFromServer());
+    }
+    if (!favorites) {
+      dispatch(fetchUserFavorites());
     }
   }, []);
 

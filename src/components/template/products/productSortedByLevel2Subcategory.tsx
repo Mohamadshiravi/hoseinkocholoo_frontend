@@ -46,8 +46,6 @@ export default function ProductsSortedByLevel2SubCategories() {
       `/products/products/filtered?category_slug=${subcategory}&ordering=${productSort}&page=${page}`
     );
 
-    console.log(res.data);
-
     setTotalPage(res.data.total_count);
     setProducts(res.data.results);
     setLoading(false);

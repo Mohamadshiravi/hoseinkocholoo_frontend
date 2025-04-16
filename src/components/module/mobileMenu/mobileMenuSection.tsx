@@ -2,6 +2,7 @@ import { AiOutlineFire } from "react-icons/ai";
 import { IoIosArrowBack } from "react-icons/io";
 import CategoriesType from "../../../types/categories";
 import { useState } from "react";
+import { Link } from "react-router";
 
 export default function MobileMenuSection({
   isMenuOpen,
@@ -27,38 +28,45 @@ export default function MobileMenuSection({
           دسته بندی محصولات
         </h4>
         <ul className="flex flex-col gap-6 py-3">
-          {categories.map((e) => (
-            <li key={e.id} className="w-full select-none">
+          {categories.map((item) => (
+            <li key={item.id} className="w-full select-none">
               <div
-                onClick={() => setMenu(!menu ? e : false)}
+                onClick={() => setMenu(!menu ? item : false)}
                 className="flex items-center justify-between w-full relative"
               >
                 <div className="flex items-center gap-2">
                   <span className="bg-red-600 w-[4px] aspect-square block"></span>
-                  <span className="moraba-bold">{e.title}</span>
+                  <span className="moraba-bold">{item.title}</span>
                 </div>
                 <IoIosArrowBack
                   className={`${
-                    menu && e.id === menu.id ? "-rotate-90" : "rotate-0"
+                    menu && item.id === menu.id ? "-rotate-90" : "rotate-0"
                   } transition-all`}
                 />
               </div>
               <div
                 className={`${
-                  menu && e.id === menu.id ? "h-auto" : "h-0"
+                  menu && item.id === menu.id ? "h-auto" : "h-0"
                 } flex flex-col bg-zinc-100 w-full rounded-md mt-1 transition-all duration-300 overflow-hidden`}
               >
-                {e.subcategories.map((e) => (
+                {item.subcategories.map((e) => (
                   <div key={e.id} className="px-3 mt-2">
-                    <h4 className="flex items-center gap-2">
+                    <Link
+                      to={`/products/${item.slug}/${e.slug}`}
+                      className="flex items-center gap-2"
+                    >
                       <span className="bg-red-600 w-[3px] h-[3px] block"></span>
                       <span className="moraba-regular">{e.title}</span>
-                    </h4>
+                    </Link>
                     <div className="flex flex-col gap-1 mt-2 text-zinc-500">
-                      {e.subcategories.map((e) => (
-                        <span key={e.id} className="text-sm pb-2">
-                          {e.title}
-                        </span>
+                      {e.subcategories.map((v) => (
+                        <Link
+                          to={`/products/${item.slug}/${e.slug}/${v.slug}`}
+                          key={e.id}
+                          className="text-sm pb-2"
+                        >
+                          {v.title}
+                        </Link>
                       ))}
                     </div>
                   </div>

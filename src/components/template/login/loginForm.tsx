@@ -22,10 +22,10 @@ export default function LoginForm() {
         const res = await axiosInstance.post("/auth/send-otp/", {
           phone_number: phone,
         });
+        console.log(res.data);
         SendSucToast("کد به شماره شما ارسال شد");
         setPhone(res.data.phone_number);
         setIsCodeSend(true);
-        console.log(res.data);
         setLoading(false);
       } catch (error) {
         setLoading(false);

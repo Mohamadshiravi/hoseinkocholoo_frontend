@@ -13,6 +13,13 @@ import RenderProductSection from "./renderProductsSection";
 export default function ProductsSortedByCategories() {
   const [productSort, setProductSort] = useState("newest");
   const [products, setProducts] = useState<ProductType[]>([]);
+  const [variantsSort, setVariantsSort] = useState("");
+
+  const [productVariants, setProductVariants] = useState({
+    colors: [],
+    sizes: [],
+  });
+
   const [totalPage, setTotalPage] = useState(1);
   const [loading, setLoading] = useState(true);
 
@@ -20,7 +27,9 @@ export default function ProductsSortedByCategories() {
   const [searchParams] = useSearchParams();
   const page = Number(searchParams.get("page")) || 1;
 
-  const { data } = useTypedSelector((state) => state.categories);
+  const { data, loading: pageLoading } = useTypedSelector(
+    (state) => state.categories
+  );
   const currentCategory = data?.filter((e) => e.slug === category)[0];
 
   const navigate = useNavigate();
@@ -34,11 +43,41 @@ export default function ProductsSortedByCategories() {
     const res = await axiosInstance.get(
       `/products/products/filtered?category_slug=${category}&ordering=${productSort}&page=${page}`
     );
+    SortProductsVariants(res.data.results);
 
     setTotalPage(res.data.total_count);
     setProducts(res.data.results);
     setLoading(false);
   }
+
+  function SortProductsVariants(allProducts: ProductType[]) {
+    const varinats: any = {
+      colors: [],
+      sizes: [],
+    };
+
+    //set color variants
+    let allColors: { id: number; name: string; hex_code: string }[] = [];
+    allProducts.map((e) => {
+      e.variants.map((v) => allColors.push(v.color));
+    });
+    const allColorsUnique = allColors.filter(
+      (item, index, self) => index === self.findIndex((t) => t.id === item.id)
+    );
+    varinats.colors = allColorsUnique;
+
+    setProductVariants(varinats);
+  }
+
+  useEffect(() => {
+    async function FetchVariantsSortedProducts() {
+      const res = await axiosInstance.get(
+        `/products/products/filtered?category_slug=${category}&ordering=${productSort}&page=${page}&color=${"سفید"}`
+      );
+      console.log(res.data);
+    }
+    FetchVariantsSortedProducts();
+  }, [variantsSort]);
 
   return (
     <>
@@ -49,7 +88,7 @@ export default function ProductsSortedByCategories() {
           <span>
             <IoIosArrowBack />
           </span>
-          {loading ? (
+          {pageLoading ? (
             <span className="bg-zinc-200 w-[80px] h-[20px]"></span>
           ) : (
             <span className="vazir-medium text-zinc-800">
@@ -58,7 +97,7 @@ export default function ProductsSortedByCategories() {
           )}
         </section>
         <section className="sm:mt-6 mt-3">
-          {loading ? (
+          {pageLoading ? (
             <span className="bg-zinc-200 w-[100px] h-[30px] block"></span>
           ) : (
             <h1 className="moraba-bold">{currentCategory?.title}</h1>
@@ -67,7 +106,7 @@ export default function ProductsSortedByCategories() {
           <SubCategorySection
             category={category || ""}
             data={currentCategory?.subcategories}
-            loading={loading}
+            loading={pageLoading}
           />
         </section>
         <RenderProductSection
@@ -75,6 +114,8 @@ export default function ProductsSortedByCategories() {
           products={products}
           productSort={productSort}
           setProductSort={setProductSort}
+          variants={productVariants}
+          setVariantsSort={setVariantsSort}
         />
         <div className="flex items-center justify-center mt-10">
           <Pagination

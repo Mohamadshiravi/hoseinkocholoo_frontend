@@ -5,10 +5,11 @@ import LoginForm from "./components/template/login/loginForm";
 import { Toaster } from "react-hot-toast";
 import { lazy, Suspense } from "react";
 import SpinnerLoader from "./components/module/loader";
-import Profile from "./components/template/profile/profile";
 import ProfileMenu from "./components/module/profileMenu";
 import ProductsSortedBySubCategories from "./components/template/products/productSortedBySubcategory";
 import ProductsSortedByLevel2SubCategories from "./components/template/products/productSortedByLevel2Subcategory";
+import UserOrders from "./components/template/profile/orders/userOrders";
+import UserFavorites from "./components/template/profile/favorites/userFavorites";
 
 const AllCategories = lazy(
   () => import("./components/template/categories/allCategories")
@@ -58,7 +59,8 @@ function App() {
 
           {/* userpanel - profile */}
           <Route path="/profile" element={<ProfileMenu />} />
-          <Route path="/profile/orders" element={<Profile />} />
+          <Route path="/profile/orders" element={<UserOrders />} />
+          <Route path="/profile/favorites" element={<UserFavorites />} />
         </Routes>
       </Suspense>
 

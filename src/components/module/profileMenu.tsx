@@ -10,18 +10,22 @@ export default function ProfileMenu() {
     {
       icon: <FaRegHeart className="text-xl text-zinc-500" />,
       name: "علاقه مندی ها",
+      route: "/profile/favorites",
     },
     {
       icon: <FaRegCircleUser className="text-xl text-zinc-500" />,
       name: "حساب کاربری",
+      route: "/profile/favorites",
     },
     {
       icon: <GrMap className="text-xl text-zinc-500" />,
       name: "نشانی ها",
+      route: "/profile/favorites",
     },
     {
       icon: <LuWallet className="text-xl text-zinc-500" />,
       name: "کیف پول",
+      route: "/profile/favorites",
     },
   ];
   return (
@@ -49,7 +53,8 @@ export default function ProfileMenu() {
         </div>
         <ul className="flex flex-col gap-3 mt-3">
           {profileMenu.map((e, i) => (
-            <li
+            <Link
+              to={e.route}
               key={i}
               className="flex cursor-pointer items-center justify-between bg-zinc-100 vazir-bold rounded-md p-4"
             >
@@ -58,7 +63,7 @@ export default function ProfileMenu() {
                 <span>{e.name}</span>
               </div>
               <IoIosArrowBack className="text-xl text-zinc-500" />
-            </li>
+            </Link>
           ))}
           <li className="border-t pt-3 border-zinc-200 cursor-pointer">
             <span className="p-3 block text-primary border-2 text-center rounded-md border-primary vazir-medium">

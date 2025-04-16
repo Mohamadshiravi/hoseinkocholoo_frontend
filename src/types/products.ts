@@ -17,6 +17,21 @@ type ProductImage = {
   is_main: boolean;
 };
 
+type ProductVariants = {
+  id: number;
+  color: {
+    id: number;
+    name: string;
+    hex_code: string;
+  };
+  product: number;
+  stock: number;
+  size: {
+    id: number;
+    title: string;
+  };
+};
+
 type ProductType = {
   id: number;
   title: string;
@@ -27,6 +42,7 @@ type ProductType = {
   price: string;
   final_price: number;
   discount: Discount;
+  variants: ProductVariants[];
   images: ProductImage[];
   is_active: boolean;
 };
