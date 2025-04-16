@@ -26,8 +26,10 @@ export default function ProductCard({
       setIsfavorites(false);
       dispatch(deleteProductFromFavorites(product.id));
     } else {
-      setIsfavorites(true);
-      dispatch(addProductToFavorites(product.id));
+      const res = await dispatch(addProductToFavorites(product.id));
+      if (res.payload) {
+        setIsfavorites(true);
+      }
     }
     dispatch(fetchUserFavorites());
   }

@@ -1,6 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import authenticatedAxios from "../../utils/axios/authenticatedAxios";
-import { SendSucToast } from "../../utils/helper/toastFunctions";
+import {
+  SendErrorToast,
+  SendSucToast,
+} from "../../utils/helper/toastFunctions";
 import ProductType from "../../types/products";
 
 interface InitialState {
@@ -55,6 +58,11 @@ const slice = createSlice({
       if (action.payload.message) {
         SendSucToast(action.payload.message);
       }
+    });
+    builder.addCase(addProductToFavorites.rejected, (_, action) => {
+      console.log(action);
+
+      SendErrorToast("لطفا ابتدا وارد اکانت خود شوید");
     });
     builder.addCase(deleteProductFromFavorites.fulfilled, (_, action) => {
       if (action.payload.message) {

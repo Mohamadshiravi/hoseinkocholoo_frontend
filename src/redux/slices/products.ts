@@ -49,7 +49,7 @@ export const fetchOfferedProductsFromServer = createAsyncThunk(
   "products/fetchOfferedProductsFromServer",
   async () => {
     const res = await axiosInstance.get(
-      "products/products/filtered?has_discount=true"
+      "products/products/filtered/?has_discount=true"
     );
     return res.data.results;
   }
