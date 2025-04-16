@@ -6,13 +6,12 @@ import axiosInstance from "../../../utils/axios/axios";
 import Header from "../../module/header";
 import { IoIosArrowBack } from "react-icons/io";
 import SubCategorySection from "./subCategoriesSection";
-import RenderProductSection from "./renderProductsSection";
 import Footer from "../../module/footer";
 import { Pagination } from "@mui/material";
 
 export default function ProductsSortedBySubCategories() {
-  const [productSort, setProductSort] = useState("newest");
-  const [products, setProducts] = useState<ProductType[]>([]);
+  const [productSort, _] = useState("newest");
+  const [__, setProducts] = useState<ProductType[]>([]);
   const [totalPage, setTotalPage] = useState(1);
   const [loading, setLoading] = useState(true);
 
@@ -92,12 +91,12 @@ export default function ProductsSortedBySubCategories() {
             />
           )}
         </section>
-        <RenderProductSection
+        {/* <RenderProductSection
           loading={loading}
           products={products}
           productSort={productSort}
           setProductSort={setProductSort}
-        />
+        /> */}
         <div className="flex items-center justify-center mt-10">
           <Pagination
             onChange={(_, v) => navigate(`/products/${category}?page=${v}`)}

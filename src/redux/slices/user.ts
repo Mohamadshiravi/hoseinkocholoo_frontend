@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axiosInstance from "../../utils/axios/axios";
 import authenticatedAxios from "../../utils/axios/authenticatedAxios";
 import { SendSucToast } from "../../utils/helper/toastFunctions";
 import ProductType from "../../types/products";
@@ -52,12 +51,12 @@ const slice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(addProductToFavorites.fulfilled, (state, action) => {
+    builder.addCase(addProductToFavorites.fulfilled, (_, action) => {
       if (action.payload.message) {
         SendSucToast(action.payload.message);
       }
     });
-    builder.addCase(deleteProductFromFavorites.fulfilled, (state, action) => {
+    builder.addCase(deleteProductFromFavorites.fulfilled, (_, action) => {
       if (action.payload.message) {
         SendSucToast(action.payload.message);
       }

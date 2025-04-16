@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useTypedSelector } from "../../../../redux/typedhooks";
 import ProductCard from "../../../module/productCard";
 import ProfileLayout from "../profileLayout";
