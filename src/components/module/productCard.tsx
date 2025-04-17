@@ -26,9 +26,10 @@ export default function ProductCard({
       setIsfavorites(false);
       dispatch(deleteProductFromFavorites(product.id));
     } else {
+      setIsfavorites(true);
       const res = await dispatch(addProductToFavorites(product.id));
-      if (res.payload) {
-        setIsfavorites(true);
+      if (!res.payload) {
+        setIsfavorites(false);
       }
     }
     dispatch(fetchUserFavorites());
@@ -54,7 +55,7 @@ export default function ProductCard({
           className="group absolute top-2 left-2 bg-white cursor-pointer rounded-full p-1 shadow-[1px_1px_10px] shadow-black/40"
         >
           <IoHeart className="text-2xl text-primary" />
-          <span className="group-hover:opacity-100 group-hover:translate-x-0 -translate-x-46 opacity-0 transition-all absolute w-[130px] flex items-center justify-center top-1 left-10 bg-primary text-white text-xs p-1 rounded-sm shadow-[1px_1px_10px] shadow-black/40">
+          <span className="group-hover:opacity-100 group-hover:translate-y-0 -translate-y-2 opacity-0 transition-all absolute w-[130px] flex items-center justify-center top-1 left-10 bg-primary text-white text-xs p-1 rounded-sm shadow-[1px_1px_10px] shadow-black/40">
             حذف از علاقه مندی ها
           </span>
         </button>
@@ -64,7 +65,7 @@ export default function ProductCard({
           className="group absolute top-2 left-2 bg-white cursor-pointer rounded-full p-1 shadow-[1px_1px_10px] shadow-black/40"
         >
           <CiHeart className="text-2xl" />
-          <span className="group-hover:opacity-100 group-hover:translate-x-0 -translate-x-46 opacity-0 transition-all absolute w-[130px] flex items-center justify-center top-1 left-10 bg-primary text-white text-xs p-1 rounded-sm shadow-[1px_1px_10px] shadow-black/40">
+          <span className="group-hover:opacity-100 group-hover:translate-y-0 -translate-y-2 opacity-0 transition-all absolute w-[130px] flex items-center justify-center top-1 left-10 bg-primary text-white text-xs p-1 rounded-sm shadow-[1px_1px_10px] shadow-black/40">
             افزودن به علاقه مندی ها
           </span>
         </button>

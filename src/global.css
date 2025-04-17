@@ -109,3 +109,52 @@ body {
     transform: translateX(100%) skewX(-20deg);
   }
 }
+
+/* multiRange slider Style */
+.range::-webkit-slider-thumb {
+  background-color: var(--color-primary);
+  border: none;
+  box-shadow: 0px 0px 0px 5px rgba(198, 197, 197, 0.545);
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+  margin-top: 1px;
+  pointer-events: all;
+  position: relative;
+  border-radius: 100px;
+  z-index: 20;
+  transition: all 0.3s;
+}
+.range::-webkit-slider-thumb:hover {
+  box-shadow: 0px 0px 0px 8px rgba(198, 197, 197, 0.545);
+}
+
+/* For Firefox browsers */
+.range::-moz-range-thumb {
+  background-color: #f1f5f7;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 0 1px 1px #ced4da;
+  cursor: pointer;
+  height: 18px;
+  width: 18px;
+  margin-top: 4px;
+  pointer-events: all;
+  position: relative;
+}
+.range,
+.range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.range {
+  pointer-events: none;
+  position: absolute;
+  height: 0;
+  width: 100%;
+  outline: none;
+  z-index: 3;
+  background: var(--color-primary);
+  height: 2px;
+}

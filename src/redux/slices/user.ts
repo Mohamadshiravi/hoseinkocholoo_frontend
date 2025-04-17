@@ -59,15 +59,17 @@ const slice = createSlice({
         SendSucToast(action.payload.message);
       }
     });
-    builder.addCase(addProductToFavorites.rejected, (_, action) => {
-      console.log(action);
-
+    builder.addCase(addProductToFavorites.rejected, (_) => {
       SendErrorToast("لطفا ابتدا وارد اکانت خود شوید");
     });
     builder.addCase(deleteProductFromFavorites.fulfilled, (_, action) => {
       if (action.payload.message) {
         SendSucToast(action.payload.message);
       }
+    });
+    builder.addCase(fetchUserFavorites.rejected, (state) => {
+      state.error = "unauth";
+      state.loading = false;
     });
     builder.addCase(fetchUserFavorites.fulfilled, (state, action) => {
       if (action.payload) {

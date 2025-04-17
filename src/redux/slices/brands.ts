@@ -3,21 +3,42 @@ import axiosInstance from "../../utils/axios/axios";
 import BrandType from "../../types/brandsType";
 
 interface InitialState {
-  loading: boolean;
-  data: BrandType[] | null;
-  error: null | string;
+  topBrands: {
+    data: BrandType[] | null;
+    loading: boolean;
+    error: null | string;
+  };
+  allBrands: {
+    data: BrandType[] | null;
+    loading: boolean;
+    error: null | string;
+  };
 }
 
 const initialState: InitialState = {
-  data: null,
-  loading: true,
-  error: null,
+  topBrands: {
+    data: null,
+    loading: true,
+    error: null,
+  },
+  allBrands: {
+    data: null,
+    loading: true,
+    error: null,
+  },
 };
 
 export const fetchTopBrandsFromServer = createAsyncThunk(
   "brands/fetchTopBrandsFromServer",
   async () => {
-    const res = await axiosInstance.get("products/brands");
+    const res = await axiosInstance.get("products/brands/");
+    return res.data;
+  }
+);
+export const fetchAllBrandsFromServer = createAsyncThunk(
+  "brands/fetchAllBrandsFromServer",
+  async () => {
+    const res = await axiosInstance.get("products/brands/");
     return res.data;
   }
 );
@@ -29,13 +50,23 @@ const slice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchTopBrandsFromServer.fulfilled, (state, action) => {
       if (action.payload) {
-        state.data = action.payload;
-        state.loading = false;
+        state.topBrands.data = action.payload;
+        state.topBrands.loading = false;
       }
     });
     builder.addCase(fetchTopBrandsFromServer.pending, (state) => {
-      state.error = null;
-      state.loading = true;
+      state.topBrands.error = null;
+      state.topBrands.loading = true;
+    });
+    builder.addCase(fetchAllBrandsFromServer.fulfilled, (state, action) => {
+      if (action.payload) {
+        state.allBrands.data = action.payload;
+        state.allBrands.loading = false;
+      }
+    });
+    builder.addCase(fetchAllBrandsFromServer.pending, (state) => {
+      state.allBrands.error = null;
+      state.allBrands.loading = true;
     });
   },
 });

@@ -18,6 +18,7 @@ export default function ProductsSortedByCategories() {
   const [productVariants, setProductVariants] = useState({
     colors: [],
     sizes: [],
+    price: [],
   });
 
   const [totalPage, setTotalPage] = useState(1);
@@ -36,14 +37,19 @@ export default function ProductsSortedByCategories() {
 
   useEffect(() => {
     FetchProducts();
-  }, [category, productSort, page]);
+  }, [category, productSort, page, variantsSort]);
 
   async function FetchProducts() {
     setLoading(true);
     const res = await axiosInstance.get(
-      `/products/products/filtered?category_slug=${category}&ordering=${productSort}&page=${page}`
+      `/products/products/filtered/?category_slug=${category}&ordering=${productSort}&page=${page}&${variantsSort}`
     );
-    SortProductsVariants(res.data.results);
+
+    console.log(res.data);
+
+    if (variantsSort === "" && res.data.results.length !== 0) {
+      SortProductsVariants(res.data.results);
+    }
 
     setTotalPage(res.data.total_count);
     setProducts(res.data.results);
@@ -51,33 +57,41 @@ export default function ProductsSortedByCategories() {
   }
 
   function SortProductsVariants(allProducts: ProductType[]) {
-    const varinats: any = {
+    const variants: any = {
       colors: [],
       sizes: [],
     };
 
     //set color variants
-    let allColors: { id: number; name: string; hex_code: string }[] = [];
-    allProducts.map((e) => {
-      e.variants.map((v) => allColors.push(v.color));
-    });
+    let allColors = allProducts.flatMap((product) =>
+      product.variants.map((e) => e.color)
+    );
     const allColorsUnique = allColors.filter(
       (item, index, self) => index === self.findIndex((t) => t.id === item.id)
     );
-    varinats.colors = allColorsUnique;
+    variants.colors = allColorsUnique;
 
-    setProductVariants(varinats);
+    //set size variants
+    let allSizes = allProducts.flatMap((product) =>
+      product.variants.map((e) => e.size)
+    );
+    const allSizesUnique = allSizes.filter(
+      (item, index, self) => index === self.findIndex((t) => t.id === item.id)
+    );
+    variants.sizes = allSizesUnique;
+
+    //set Price variants
+    const sortedByPrice = allProducts.sort(
+      (a, b) => +a.final_price - +b.final_price
+    );
+    const price = [
+      sortedByPrice[0].final_price,
+      sortedByPrice[sortedByPrice.length - 1].final_price,
+    ];
+    variants.price = price;
+
+    setProductVariants(variants);
   }
-
-  useEffect(() => {
-    async function FetchVariantsSortedProducts() {
-      const res = await axiosInstance.get(
-        `/products/products/filtered?category_slug=${category}&ordering=${productSort}&page=${page}&color=${"سفید"}`
-      );
-      console.log(res.data);
-    }
-    FetchVariantsSortedProducts();
-  }, [variantsSort]);
 
   return (
     <>
@@ -116,6 +130,7 @@ export default function ProductsSortedByCategories() {
           setProductSort={setProductSort}
           variants={productVariants}
           setVariantsSort={setVariantsSort}
+          variantsSort={variantsSort}
         />
         <div className="flex items-center justify-center mt-10">
           <Pagination

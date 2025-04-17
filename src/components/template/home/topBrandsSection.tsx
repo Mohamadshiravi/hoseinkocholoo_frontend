@@ -7,7 +7,7 @@ export default function TopBrandsSection() {
     dispatch(fetchTopBrandsFromServer());
   }, []);
 
-  const { data, loading } = useTypedSelector((state) => state.brnads);
+  const { data, loading } = useTypedSelector((state) => state.brnads.topBrands);
 
   const dispatch = useTypedDispatch();
   return (

@@ -6,8 +6,6 @@ import { Toaster } from "react-hot-toast";
 import { lazy, Suspense } from "react";
 import SpinnerLoader from "./components/module/loader";
 import ProfileMenu from "./components/module/profileMenu";
-import ProductsSortedBySubCategories from "./components/template/products/productSortedBySubcategory";
-import ProductsSortedByLevel2SubCategories from "./components/template/products/productSortedByLevel2Subcategory";
 import UserOrders from "./components/template/profile/orders/userOrders";
 import UserFavorites from "./components/template/profile/favorites/userFavorites";
 
@@ -23,6 +21,13 @@ const SubCategories = lazy(
 
 const ProductsSortedByCategories = lazy(
   () => import("./components/template/products/productsSortedByCategories")
+);
+const ProductsSortedBySubCategories = lazy(
+  () => import("./components/template/products/productSortedBySubcategory")
+);
+const ProductsSortedByLevel2SubCategories = lazy(
+  () =>
+    import("./components/template/products/productSortedByLevel2Subcategory")
 );
 
 function App() {

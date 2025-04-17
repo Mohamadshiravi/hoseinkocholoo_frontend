@@ -21,13 +21,16 @@ export default function Header() {
     (state) => state.categories
   );
 
-  const { favorites } = useTypedSelector((state) => state.user);
+  const { favorites, error } = useTypedSelector((state) => state.user);
 
   useEffect(() => {
     if (!categories) {
       dispatch(fetchCategoriesFromServer());
     }
-    if (!favorites) {
+
+    console.log(favorites);
+
+    if (!favorites && error !== "unauth") {
       dispatch(fetchUserFavorites());
     }
   }, []);

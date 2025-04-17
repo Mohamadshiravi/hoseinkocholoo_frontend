@@ -1,25 +1,36 @@
-import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams, useSearchParams } from "react-router";
-import ProductType from "../../../types/products";
-import { useTypedSelector } from "../../../redux/typedhooks";
-import axiosInstance from "../../../utils/axios/axios";
-import Header from "../../module/header";
 import { IoIosArrowBack } from "react-icons/io";
+import { useTypedSelector } from "../../../redux/typedhooks";
+import { Link, useNavigate, useParams, useSearchParams } from "react-router";
 import SubCategorySection from "./subCategoriesSection";
-import Footer from "../../module/footer";
 import { Pagination } from "@mui/material";
+import { useEffect, useState } from "react";
+import axiosInstance from "../../../utils/axios/axios";
+import ProductType from "../../../types/products";
+import Footer from "../../module/footer";
+import Header from "../../module/header";
+import RenderProductSection from "./renderProductsSection";
 
-export default function ProductsSortedBySubCategories() {
-  const [productSort, _] = useState("newest");
-  const [__, setProducts] = useState<ProductType[]>([]);
+export default function ProductsSortedByCategories() {
+  const [productSort, setProductSort] = useState("newest");
+  const [products, setProducts] = useState<ProductType[]>([]);
+  const [variantsSort, setVariantsSort] = useState("");
+
+  const [productVariants, setProductVariants] = useState({
+    colors: [],
+    sizes: [],
+    price: [],
+  });
+
   const [totalPage, setTotalPage] = useState(1);
   const [loading, setLoading] = useState(true);
 
   const { category, subcategory } = useParams();
   const [searchParams] = useSearchParams();
   const page = Number(searchParams.get("page")) || 1;
-  const { data } = useTypedSelector((state) => state.categories);
 
+  const { data, loading: pageLoading } = useTypedSelector(
+    (state) => state.categories
+  );
   //bread crumb
   const currentCategory = data
     ?.filter((e) => e.slug === category)[0]
@@ -32,17 +43,60 @@ export default function ProductsSortedBySubCategories() {
 
   useEffect(() => {
     FetchProducts();
-  }, [category, productSort, page]);
+  }, [category, productSort, page, variantsSort]);
 
   async function FetchProducts() {
     setLoading(true);
     const res = await axiosInstance.get(
-      `/products/products/filtered?category_slug=${subcategory}&ordering=${productSort}&page=${page}`
+      `/products/products/filtered/?category_slug=${subcategory}&ordering=${productSort}&page=${page}&${variantsSort}`
     );
+
+    console.log(res.data);
+
+    if (variantsSort === "" && res.data.results.length !== 0) {
+      SortProductsVariants(res.data.results);
+    }
 
     setTotalPage(res.data.total_count);
     setProducts(res.data.results);
     setLoading(false);
+  }
+
+  function SortProductsVariants(allProducts: ProductType[]) {
+    const variants: any = {
+      colors: [],
+      sizes: [],
+    };
+
+    //set color variants
+    let allColors = allProducts.flatMap((product) =>
+      product.variants.map((e) => e.color)
+    );
+    const allColorsUnique = allColors.filter(
+      (item, index, self) => index === self.findIndex((t) => t.id === item.id)
+    );
+    variants.colors = allColorsUnique;
+
+    //set size variants
+    let allSizes = allProducts.flatMap((product) =>
+      product.variants.map((e) => e.size)
+    );
+    const allSizesUnique = allSizes.filter(
+      (item, index, self) => index === self.findIndex((t) => t.id === item.id)
+    );
+    variants.sizes = allSizesUnique;
+
+    //set Price variants
+    const sortedByPrice = allProducts.sort(
+      (a, b) => +a.final_price - +b.final_price
+    );
+    const price = [
+      sortedByPrice[0].final_price,
+      sortedByPrice[sortedByPrice.length - 1].final_price,
+    ];
+    variants.price = price;
+
+    setProductVariants(variants);
   }
 
   return (
@@ -54,7 +108,7 @@ export default function ProductsSortedBySubCategories() {
           <span>
             <IoIosArrowBack />
           </span>
-          {loading ? (
+          {pageLoading ? (
             <span className="bg-zinc-200 w-[80px] h-[20px]"></span>
           ) : (
             <Link
@@ -67,7 +121,7 @@ export default function ProductsSortedBySubCategories() {
           <span>
             <IoIosArrowBack />
           </span>
-          {loading ? (
+          {pageLoading ? (
             <span className="bg-zinc-200 w-[80px] h-[20px]"></span>
           ) : (
             <span className="vazir-medium text-zinc-800">
@@ -76,27 +130,28 @@ export default function ProductsSortedBySubCategories() {
           )}
         </section>
         <section className="sm:mt-6 mt-3">
-          {loading ? (
+          {pageLoading ? (
             <span className="bg-zinc-200 w-[100px] h-[30px] block"></span>
           ) : (
             <h1 className="moraba-bold">{currentCategory?.title}</h1>
           )}
 
-          {currentCategory?.subcategories && (
-            <SubCategorySection
-              data={currentCategory?.subcategories}
-              loading={loading}
-              category={category || ""}
-              subCategory={subcategory}
-            />
-          )}
+          <SubCategorySection
+            subCategory={subcategory || ""}
+            category={category || ""}
+            data={currentCategory?.subcategories}
+            loading={pageLoading}
+          />
         </section>
-        {/* <RenderProductSection
+        <RenderProductSection
           loading={loading}
           products={products}
           productSort={productSort}
           setProductSort={setProductSort}
-        /> */}
+          variants={productVariants}
+          setVariantsSort={setVariantsSort}
+          variantsSort={variantsSort}
+        />
         <div className="flex items-center justify-center mt-10">
           <Pagination
             onChange={(_, v) => navigate(`/products/${category}?page=${v}`)}
