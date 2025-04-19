@@ -3,11 +3,13 @@ import { useTypedDispatch, useTypedSelector } from "../../../redux/typedhooks";
 import { fetchTopBrandsFromServer } from "../../../redux/slices/brands";
 
 export default function TopBrandsSection() {
-  useEffect(() => {
-    dispatch(fetchTopBrandsFromServer());
-  }, []);
-
   const { data, loading } = useTypedSelector((state) => state.brnads.topBrands);
+
+  useEffect(() => {
+    if (!data) {
+      dispatch(fetchTopBrandsFromServer());
+    }
+  }, [data]);
 
   const dispatch = useTypedDispatch();
   return (

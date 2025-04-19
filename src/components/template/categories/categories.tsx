@@ -1,6 +1,5 @@
 import { Link, useParams } from "react-router";
 import { useTypedSelector } from "../../../redux/typedhooks";
-import Header from "../../module/header";
 
 export default function Categories() {
   const { data, loading } = useTypedSelector((state) => state.categories);
@@ -8,7 +7,6 @@ export default function Categories() {
   const { category } = useParams();
   return (
     <>
-      <Header />
       <section className="grid grid-cols-[6fr_6fr] gap-3 lg:px-42 sm:px-4 px-3 sm:py-4 py-3">
         {loading
           ? Array.from({ length: 6 }).map((_, i) => (

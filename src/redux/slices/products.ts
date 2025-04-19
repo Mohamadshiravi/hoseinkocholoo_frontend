@@ -29,12 +29,12 @@ interface InitialState {
 
 const initialState: InitialState = {
   offeredProducts: {
-    data: [],
+    data: null,
     loading: true,
     error: null,
   },
   products: {
-    data: [],
+    data: null,
     loading: true,
     error: null,
   },

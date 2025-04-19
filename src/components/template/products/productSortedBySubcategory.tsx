@@ -6,8 +6,6 @@ import { Pagination } from "@mui/material";
 import { useEffect, useState } from "react";
 import axiosInstance from "../../../utils/axios/axios";
 import ProductType from "../../../types/products";
-import Footer from "../../module/footer";
-import Header from "../../module/header";
 import RenderProductSection from "./renderProductsSection";
 
 export default function ProductsSortedByCategories() {
@@ -50,8 +48,6 @@ export default function ProductsSortedByCategories() {
     const res = await axiosInstance.get(
       `/products/products/filtered/?category_slug=${subcategory}&ordering=${productSort}&page=${page}&${variantsSort}`
     );
-
-    console.log(res.data);
 
     if (variantsSort === "" && res.data.results.length !== 0) {
       SortProductsVariants(res.data.results);
@@ -101,7 +97,6 @@ export default function ProductsSortedByCategories() {
 
   return (
     <>
-      <Header />
       <main className="w-full lg:px-32 sm:px-4 px-3 sm:py-8 py-3">
         <section className="flex items-center gap-2 text-xs text-zinc-500">
           <Link to={"/"}>خانه</Link>
@@ -163,7 +158,6 @@ export default function ProductsSortedByCategories() {
           />
         </div>
       </main>
-      <Footer />
     </>
   );
 }

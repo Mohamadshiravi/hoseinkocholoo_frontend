@@ -23,8 +23,10 @@ export default function AllOfferedProductsSection() {
     .loading;
 
   useEffect(() => {
-    dispatch(fetchSortedProductByDiscountFromServer());
-  }, []);
+    if (!sortedProducts) {
+      dispatch(fetchSortedProductByDiscountFromServer());
+    }
+  }, [sortedProducts]);
 
   const dispatch = useTypedDispatch();
   return (

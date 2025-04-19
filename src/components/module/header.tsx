@@ -10,7 +10,7 @@ import { HiOutlineMenu } from "react-icons/hi";
 import { LuWallet } from "react-icons/lu";
 import { Link } from "react-router";
 import { PiUserLight } from "react-icons/pi";
-import { fetchUserFavorites } from "../../redux/slices/user";
+import { fetchUserData, fetchUserFavorites } from "../../redux/slices/user";
 
 export default function Header() {
   const [hoverMenu, setHoverMenu] = useState<CategoriesType | false>();
@@ -21,19 +21,26 @@ export default function Header() {
     (state) => state.categories
   );
 
-  const { favorites, error } = useTypedSelector((state) => state.user);
+  const {
+    favorites,
+    error,
+    data,
+    loading: userLoading,
+  } = useTypedSelector((state) => state.user);
 
   useEffect(() => {
     if (!categories) {
       dispatch(fetchCategoriesFromServer());
     }
 
-    console.log(favorites);
-
     if (!favorites && error !== "unauth") {
       dispatch(fetchUserFavorites());
     }
-  }, []);
+
+    if (!data && error !== "unauth") {
+      dispatch(fetchUserData());
+    }
+  }, [data, favorites, categories]);
 
   const dispatch = useTypedDispatch();
   return (
@@ -111,16 +118,18 @@ export default function Header() {
           <Link to={"/"} className=" w-full flex items-center justify-center">
             <img
               src="/img/logo/logo-2.png"
-              className="lg:h-[70px] sm:h-[60px] h-[50px]"
+              className="lg:h-[75px] sm:h-[60px] h-[50px]"
             />
           </Link>
-          <div className="items-center gap-3 text-2xl lg:hidden flex h-[35px]">
-            <span className="text-sm h-full rounded-md flex items-center gap-2 vazir-medium text-zinc-800">
-              {(100000).toLocaleString()} <span className="text-xs">ت</span>
-              <span className="text-zinc-600">|</span>
-              <LuWallet className="text-xl text-zinc-600" />
-            </span>
-          </div>
+          {data && !loading && (
+            <div className="items-center gap-3 text-2xl lg:hidden flex h-[35px]">
+              <span className="text-sm h-full rounded-md flex items-center gap-2 vazir-medium text-zinc-800">
+                {(100000).toLocaleString()} <span className="text-xs">ت</span>
+                <span className="text-zinc-600">|</span>
+                <LuWallet className="text-xl text-zinc-600" />
+              </span>
+            </div>
+          )}
         </div>
         <div
           onMouseEnter={() => setHoverMenu(false)}
@@ -137,26 +146,35 @@ export default function Header() {
               <span>/</span>
             </div>
           </div>
-          <div className="items-center gap-3 text-2xl lg:flex hidden h-[45px]">
-            <span className="text-base  bg-zinc-100 px-3 h-full rounded-md flex items-center gap-2 vazir-medium text-zinc-800">
-              {(100000).toLocaleString()} <span className="text-xs ">ت</span>
-              <span className="">|</span>
-              <LuWallet className="text-2xl" />
-            </span>
-          </div>
-          <Link
-            to={"/profile/orders"}
-            className="bg-zinc-800 text-white text-sm cursor-pointer hover:bg-zinc-800/90 transition moraba-regular flex items-center justify-center rounded-md sm:h-[45px] h-[40px] aspect-square"
-          >
-            <PiUserLight className="text-3xl" />
-          </Link>
-
-          <Link
-            to={"/login"}
-            className="bg-zinc-800 text-white text-sm cursor-pointer hover:bg-zinc-800/90 transition moraba-regular flex items-center justify-center rounded-md sm:h-[45px] h-[40px] w-[100px]"
-          >
-            <span>وارد شوید</span>
-          </Link>
+          {data ? (
+            loading ? (
+              <div className="lg:w-[200px] rounded-md w-[50px] lg:h-[45px] h-[40px] lg:bg-zinc-200 bg-zinc-800"></div>
+            ) : (
+              <>
+                <div className="items-center gap-3 text-2xl lg:flex hidden h-[45px]">
+                  <span className="text-base  bg-zinc-100 px-3 h-full rounded-md flex items-center gap-2 vazir-medium text-zinc-800">
+                    {(100000).toLocaleString()}{" "}
+                    <span className="text-xs ">ت</span>
+                    <span className="">|</span>
+                    <LuWallet className="text-2xl" />
+                  </span>
+                </div>
+                <Link
+                  to={"/profile/orders"}
+                  className="bg-zinc-800 text-white text-sm cursor-pointer hover:bg-zinc-800/90 transition moraba-regular flex items-center justify-center rounded-md sm:h-[45px] h-[40px] aspect-square"
+                >
+                  <PiUserLight className="text-3xl" />
+                </Link>
+              </>
+            )
+          ) : (
+            <Link
+              to={"/login"}
+              className="bg-zinc-800 text-white text-sm cursor-pointer hover:bg-zinc-800/90 transition moraba-regular flex items-center justify-center rounded-md sm:h-[45px] h-[40px] w-[100px]"
+            >
+              <span>وارد شوید</span>
+            </Link>
+          )}
         </div>
         <div className="items-center justify-center text-sm moraba-regular lg:flex hidden py-2">
           {loading

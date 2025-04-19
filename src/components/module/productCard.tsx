@@ -28,18 +28,18 @@ export default function ProductCard({
     } else {
       setIsfavorites(true);
       const res = await dispatch(addProductToFavorites(product.id));
+
       if (!res.payload) {
         setIsfavorites(false);
       }
     }
-    dispatch(fetchUserFavorites());
   }
 
   useEffect(() => {
     if (favorites?.some((e) => e.id === product.id)) {
       setIsfavorites(true);
     }
-  }, [favorites]);
+  }, []);
 
   return (
     <div

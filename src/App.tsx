@@ -1,33 +1,23 @@
 import { Route, Routes } from "react-router";
 import MobileNavbar from "./components/module/mobileNavbar";
-import Home from "./components/template/home/home";
-import LoginForm from "./components/template/login/loginForm";
+import Home from "./components/template/home/home"; // فقط Home مستقیم ایمپورت میشه
 import { Toaster } from "react-hot-toast";
 import { lazy, Suspense } from "react";
 import SpinnerLoader from "./components/module/loader";
-import ProfileMenu from "./components/module/profileMenu";
-import UserOrders from "./components/template/profile/orders/userOrders";
-import UserFavorites from "./components/template/profile/favorites/userFavorites";
 
-const AllCategories = lazy(
-  () => import("./components/template/categories/allCategories")
-);
-const Categories = lazy(
-  () => import("./components/template/categories/categories")
-);
-const SubCategories = lazy(
-  () => import("./components/template/categories/subCategories")
+// Lazy load components
+const LoginForm = lazy(() => import("./components/template/login/loginForm"));
+
+const CategoriesRoute = lazy(
+  () => import("./components/template/categories/categoriesRoute")
 );
 
-const ProductsSortedByCategories = lazy(
-  () => import("./components/template/products/productsSortedByCategories")
+const ProductRoutes = lazy(
+  () => import("./components/template/products/productRoutes")
 );
-const ProductsSortedBySubCategories = lazy(
-  () => import("./components/template/products/productSortedBySubcategory")
-);
-const ProductsSortedByLevel2SubCategories = lazy(
-  () =>
-    import("./components/template/products/productSortedByLevel2Subcategory")
+
+const ProfileRoutes = lazy(
+  () => import("./components/template/profile/profileRoutes")
 );
 
 function App() {
@@ -37,35 +27,17 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
 
-          {/* categories */}
-          <Route path="/categories" element={<AllCategories />} />
-          <Route path="/categories/:category" element={<Categories />} />
-          <Route
-            path="/categories/:category/:subcategory"
-            element={<SubCategories />}
-          />
-
-          {/* products */}
-          <Route
-            path="/products/:category"
-            element={<ProductsSortedByCategories />}
-          />
-          <Route
-            path="/products/:category/:subcategory"
-            element={<ProductsSortedBySubCategories />}
-          />
-          <Route
-            path="/products/:category/:subcategory/:level2subcategory"
-            element={<ProductsSortedByLevel2SubCategories />}
-          />
-
           {/* auth */}
           <Route path="/login" element={<LoginForm />} />
 
-          {/* userpanel - profile */}
-          <Route path="/profile" element={<ProfileMenu />} />
-          <Route path="/profile/orders" element={<UserOrders />} />
-          <Route path="/profile/favorites" element={<UserFavorites />} />
+          {/* categories */}
+          <Route path="/categories/*" element={<CategoriesRoute />} />
+
+          {/* products */}
+          <Route path="/products/*" element={<ProductRoutes />} />
+
+          {/* profile */}
+          <Route path="/profile/*" element={<ProfileRoutes />} />
         </Routes>
       </Suspense>
 

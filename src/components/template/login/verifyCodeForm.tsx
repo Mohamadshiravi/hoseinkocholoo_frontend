@@ -6,6 +6,8 @@ import {
   SendErrorToast,
   SendSucToast,
 } from "../../../utils/helper/toastFunctions";
+import { useTypedDispatch } from "../../../redux/typedhooks";
+import { fetchUserData, fetchUserFavorites } from "../../../redux/slices/user";
 
 export default function VerifyCodeForm({ phone }: { phone: string }) {
   const [seconds, setSeconds] = useState(120);
@@ -13,6 +15,7 @@ export default function VerifyCodeForm({ phone }: { phone: string }) {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+  const dispatch = useTypedDispatch();
 
   function handleInputChange(e: ChangeEvent<HTMLInputElement>, index: number) {
     const codeClone: string[] = code;
@@ -56,6 +59,8 @@ export default function VerifyCodeForm({ phone }: { phone: string }) {
 
       localStorage.setItem("token", res.data.access_token);
       SendSucToast("خوش امدید");
+      dispatch(fetchUserData());
+      dispatch(fetchUserFavorites());
       setLoading(false);
       navigate("/");
     } catch (error) {

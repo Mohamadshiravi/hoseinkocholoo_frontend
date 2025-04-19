@@ -5,7 +5,7 @@ import { Link, useLocation } from "react-router";
 export default function MobileNavbar() {
   const path = useLocation().pathname;
   const categoriesRegex = /^\/categories(\/.*)?$/;
-  const profilesRegex = /^\/profile(\/.*)?$/;
+  const profilesRegex = /^\/profile(\/(?!favorites).*)?$/;
 
   return (
     <nav className="fixed bottom-0 left-0 w-full bg-white shadow-[5px_5px_10px] z-30 p-2 sm:hidden block">

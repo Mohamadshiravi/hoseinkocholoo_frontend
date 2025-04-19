@@ -1,9 +1,23 @@
-import { useTypedSelector } from "../../../../redux/typedhooks";
+import { useEffect } from "react";
+import {
+  useTypedDispatch,
+  useTypedSelector,
+} from "../../../../redux/typedhooks";
 import ProductCard from "../../../module/productCard";
 import ProfileLayout from "../profileLayout";
+import { fetchUserFavorites } from "../../../../redux/slices/user";
 
 export default function UserFavorites() {
   const { favorites, loading } = useTypedSelector((state) => state.user);
+
+  useEffect(() => {
+    if (!favorites) {
+      console.log(favorites);
+      dispatch(fetchUserFavorites());
+    }
+  }, [favorites]);
+
+  const dispatch = useTypedDispatch();
 
   return (
     <ProfileLayout>
@@ -24,6 +38,11 @@ export default function UserFavorites() {
                   <ProductCard inProducts key={e.id} product={e} />
                 ))}
           </div>
+          {favorites?.length === 0 && (
+            <h3 className="w-full py-20 px-4 text-center flex items-center justify-center text-zinc-500">
+              شما هیج محصولی را به مورد علاقه های خود اضافه نکردید !
+            </h3>
+          )}
         </div>
       </section>
     </ProfileLayout>

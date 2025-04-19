@@ -20,6 +20,14 @@ const initialState: InitialState = {
   error: null,
 };
 
+export const fetchUserData = createAsyncThunk(
+  "user/fetchUserData",
+  async () => {
+    const res = await authenticatedAxios.get("/auth/get-me/");
+    return res.data;
+  }
+);
+
 export const fetchUserFavorites = createAsyncThunk(
   "user/fetchUserfavorites",
   async () => {
@@ -30,9 +38,13 @@ export const fetchUserFavorites = createAsyncThunk(
 export const addProductToFavorites = createAsyncThunk(
   "user/addProductToFavorites",
   async (id: number) => {
-    const res = await authenticatedAxios.post("/favorites/add-to-favorites/", {
-      product_id: id,
-    });
+    const res = await authenticatedAxios.post(
+      "/favorites/add/?return_product=true",
+      {
+        product_id: id,
+      }
+    );
+
     return res.data;
   }
 );
@@ -40,7 +52,7 @@ export const deleteProductFromFavorites = createAsyncThunk(
   "user/deleteProductToFavorites",
   async (id: number) => {
     const res = await authenticatedAxios.post(
-      "/favorites/remove-from-favorites/",
+      "/favorites/remove/?return_product=true",
       {
         product_id: id,
       }
@@ -54,7 +66,28 @@ const slice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(addProductToFavorites.fulfilled, (_, action) => {
+    builder.addCase(fetchUserData.rejected, (state) => {
+      state.error = "unauth";
+      state.loading = false;
+    });
+    builder.addCase(fetchUserData.fulfilled, (state, action) => {
+      console.log("data =>", action.payload);
+
+      if (action.payload) {
+        state.data = action.payload;
+        state.loading = false;
+      }
+    });
+    builder.addCase(fetchUserData.pending, (state) => {
+      state.error = null;
+      state.loading = true;
+    });
+    builder.addCase(addProductToFavorites.fulfilled, (state, action) => {
+      const currentFavorites = state.favorites;
+      currentFavorites?.push(action.payload.product);
+
+      state.favorites = currentFavorites;
+
       if (action.payload.message) {
         SendSucToast(action.payload.message);
       }
@@ -62,7 +95,14 @@ const slice = createSlice({
     builder.addCase(addProductToFavorites.rejected, (_) => {
       SendErrorToast("لطفا ابتدا وارد اکانت خود شوید");
     });
-    builder.addCase(deleteProductFromFavorites.fulfilled, (_, action) => {
+    builder.addCase(deleteProductFromFavorites.fulfilled, (state, action) => {
+      const newFavorites = state.favorites?.filter(
+        (e) => e.id !== action.payload.product.id
+      );
+      if (newFavorites) {
+        state.favorites = newFavorites;
+      }
+
       if (action.payload.message) {
         SendSucToast(action.payload.message);
       }
