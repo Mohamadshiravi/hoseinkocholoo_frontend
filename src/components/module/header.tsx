@@ -121,7 +121,7 @@ export default function Header() {
               className="lg:h-[75px] sm:h-[60px] h-[50px]"
             />
           </Link>
-          {data && !loading && (
+          {data && !userLoading && (
             <div className="items-center gap-3 text-2xl lg:hidden flex h-[35px]">
               <span className="text-sm h-full rounded-md flex items-center gap-2 vazir-medium text-zinc-800">
                 {(100000).toLocaleString()} <span className="text-xs">ت</span>
@@ -147,7 +147,7 @@ export default function Header() {
             </div>
           </div>
           {data ? (
-            loading ? (
+            userLoading ? (
               <div className="lg:w-[200px] rounded-md w-[50px] lg:h-[45px] h-[40px] lg:bg-zinc-200 bg-zinc-800"></div>
             ) : (
               <>

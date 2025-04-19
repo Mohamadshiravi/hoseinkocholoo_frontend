@@ -71,7 +71,7 @@ export default function OfferedProductsSection() {
             : Array.from({ length: 5 }).map((_, i) => (
                 <div
                   key={i}
-                  className="keen-slider__slide bg-zinc-200 h-[270px] !min-w-[200px] !max-w-[200px] p-2 rounded-lg flex-shrink-0 flex flex-col"
+                  className="keen-slider__slide bg-zinc-200 h-[320px] !min-w-[200px] !max-w-[200px] p-2 rounded-lg flex-shrink-0 flex flex-col"
                 ></div>
               ))}
         </div>

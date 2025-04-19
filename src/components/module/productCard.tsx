@@ -4,10 +4,11 @@ import { useTypedDispatch, useTypedSelector } from "../../redux/typedhooks";
 import {
   addProductToFavorites,
   deleteProductFromFavorites,
-  fetchUserFavorites,
+  toggleProductToCart,
 } from "../../redux/slices/user";
 import { IoHeart } from "react-icons/io5";
 import { useEffect, useState } from "react";
+import { PiShoppingCartSimpleLight } from "react-icons/pi";
 
 export default function ProductCard({
   product,
@@ -17,7 +18,9 @@ export default function ProductCard({
   inProducts?: boolean;
 }) {
   const [isFavorites, setIsfavorites] = useState(false);
+  const [_, setIsInCart] = useState(false);
   const { favorites } = useTypedSelector((state) => state.user);
+  const { cart } = useTypedSelector((state) => state.user);
 
   const dispatch = useTypedDispatch();
 
@@ -35,9 +38,29 @@ export default function ProductCard({
     }
   }
 
+  async function ToggleFromCart() {
+    console.log(product);
+
+    dispatch(toggleProductToCart({ variant_id: product.id, quantity: 1 }));
+    // if (cart?.some((e) => e.id === product.id)) {
+    //   setIsInCart(false);
+    //   dispatch(deleteProductFromFavorites(product.id));
+    // } else {
+    //   setIsInCart(true);
+    //   const res = await dispatch(addProductToFavorites(product.id));
+
+    //   if (!res.payload) {
+    //     setIsInCart(false);
+    //   }
+    // }
+  }
+
   useEffect(() => {
     if (favorites?.some((e) => e.id === product.id)) {
       setIsfavorites(true);
+    }
+    if (cart?.some((e) => e.id === product.id)) {
+      setIsInCart(true);
     }
   }, []);
 
@@ -106,6 +129,13 @@ export default function ProductCard({
           </span>
         </div>
       </div>
+      <button
+        onClick={ToggleFromCart}
+        className="flex items-center justify-center vazir-medium gap-4 bg-primary hover:bg-primary/80 transition-all w-full py-2  mt-2 rounded-sm text-sm text-white cursor-pointer"
+      >
+        <PiShoppingCartSimpleLight className="text-2xl" />
+        افزودن به سبد خرید
+      </button>
     </div>
   );
 }

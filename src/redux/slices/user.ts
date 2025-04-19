@@ -10,6 +10,7 @@ interface InitialState {
   loading: boolean;
   data: [] | null;
   favorites: ProductType[] | null;
+  cart: ProductType[] | null;
   error: null | string;
 }
 
@@ -17,6 +18,7 @@ const initialState: InitialState = {
   data: null,
   loading: true,
   favorites: null,
+  cart: null,
   error: null,
 };
 
@@ -57,6 +59,23 @@ export const deleteProductFromFavorites = createAsyncThunk(
         product_id: id,
       }
     );
+    return res.data;
+  }
+);
+
+export const toggleProductToCart = createAsyncThunk(
+  "user/toggleProductToCart",
+  async (payload: { variant_id: number; quantity: number }) => {
+    console.log(payload);
+
+    const res = await authenticatedAxios.post(
+      "/cart/add/?return_product=true/",
+      {
+        variant_id: payload.variant_id,
+        quantity: payload.quantity,
+      }
+    );
+    console.log(res);
     return res.data;
   }
 );

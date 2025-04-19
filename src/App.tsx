@@ -20,6 +20,8 @@ const ProfileRoutes = lazy(
   () => import("./components/template/profile/profileRoutes")
 );
 
+const CartRoutes = lazy(() => import("./components/template/cart/cartRoutes"));
+
 function App() {
   return (
     <main className="text-zinc-800 antialiased sm:mb-0 mb-18">
@@ -38,6 +40,9 @@ function App() {
 
           {/* profile */}
           <Route path="/profile/*" element={<ProfileRoutes />} />
+
+          {/* cart */}
+          <Route path="/cart/*" element={<CartRoutes />} />
         </Routes>
       </Suspense>
 

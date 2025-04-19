@@ -109,7 +109,7 @@ const RenderProductSection = React.memo(
               ? Array.from({ length: 20 }).map((_, i) => (
                   <div
                     key={i}
-                    className=" bg-zinc-200 h-[270px] w-full rounded-lg"
+                    className=" bg-zinc-200 h-[320px] w-full rounded-lg"
                   ></div>
                 ))
               : products.length !== 0 &&
